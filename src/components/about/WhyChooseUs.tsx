@@ -1,6 +1,8 @@
 import React from 'react';
 import { SectionHeader } from '../common/SectionHeader';
 import { ShieldCheck } from 'lucide-react';
+import { ScrollReveal, StaggerContainer, StaggerItem } from '../common/ScrollReveal';
+import { motion } from 'framer-motion';
 
 export const WhyChooseUs: React.FC = () => {
   const reasons = [
@@ -19,22 +21,26 @@ export const WhyChooseUs: React.FC = () => {
   return (
     <section className="py-24 relative bg-[#020712]">
       <div className="max-w-[1320px] mx-auto px-6 relative z-10">
-        <SectionHeader 
-          title="WHY CHOOSE US?" 
-          subtitle="Advantages"
-        />
+        <ScrollReveal direction="up">
+          <SectionHeader 
+            title="WHY CHOOSE US?" 
+            subtitle="Advantages"
+          />
+        </ScrollReveal>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4 mt-12">
+        <StaggerContainer staggerDelay={0.06} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4 mt-12">
           {reasons.map((reason, idx) => (
-            <div 
-              key={idx}
-              className="flex items-center gap-3 p-4 bg-[#05101A] border border-[#00D9FF]/5 rounded-lg hover:border-[#00D9FF]/20 hover:bg-[#071625] transition-colors"
-            >
-              <ShieldCheck className="w-5 h-5 text-[#00D9FF] shrink-0 opacity-80" />
-              <span className="text-[#F5F7FA] font-medium text-[13px] leading-tight">{reason}</span>
-            </div>
+            <StaggerItem key={idx}>
+              <motion.div 
+                whileHover={{ y: -4, borderColor: "rgba(0,217,255,0.4)", backgroundColor: "#071625" }}
+                className="flex items-center gap-3 p-4 bg-[#05101A] border border-[#00D9FF]/10 rounded-lg transition-all cursor-default shadow-sm hover:shadow-[0_0_15px_rgba(0,217,255,0.1)]"
+              >
+                <ShieldCheck className="w-5 h-5 text-[#00D9FF] shrink-0 opacity-80" />
+                <span className="text-[#F5F7FA] font-medium text-[13px] leading-tight">{reason}</span>
+              </motion.div>
+            </StaggerItem>
           ))}
-        </div>
+        </StaggerContainer>
       </div>
     </section>
   );

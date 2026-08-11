@@ -3,6 +3,8 @@ import { SectionHeader } from '../common/SectionHeader';
 import { securityFeaturesLeft, securityFeaturesRight } from '../../data/content';
 import { Shield, ShieldAlert, Cpu } from 'lucide-react';
 import { cn } from '../../utils/cn';
+import { ScrollReveal, StaggerContainer, StaggerItem } from '../common/ScrollReveal';
+import { motion } from 'framer-motion';
 
 export const SecurityPlatform: React.FC = () => {
   return (
@@ -10,23 +12,29 @@ export const SecurityPlatform: React.FC = () => {
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-[#00D9FF]/5 via-[#020712] to-[#020712]"></div>
 
       <div className="max-w-[1320px] mx-auto px-6 relative z-10">
-        <SectionHeader 
-          title="AI SECURITY PLATFORM" 
-          subtitle="Enterprise Security Engine"
-          description="Protect every user, every device, every application, and every interaction with intelligent security."
-        />
+        <ScrollReveal direction="up">
+          <SectionHeader 
+            title="AI SECURITY PLATFORM" 
+            subtitle="Enterprise Security Engine"
+            description="Protect every user, every device, every application, and every interaction with intelligent security."
+          />
+        </ScrollReveal>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center mt-16">
           
           {/* Left Column */}
           <div className="lg:col-span-4 flex flex-col gap-4">
-            {securityFeaturesLeft.map((feature, idx) => (
-              <FeatureItem key={idx} text={feature} align="right" />
-            ))}
+            <StaggerContainer staggerDelay={0.1}>
+              {securityFeaturesLeft.map((feature, idx) => (
+                <StaggerItem key={idx}>
+                  <FeatureItem text={feature} align="right" />
+                </StaggerItem>
+              ))}
+            </StaggerContainer>
           </div>
 
           {/* Center Visual */}
-          <div className="lg:col-span-4 relative flex items-center justify-center py-12 lg:py-0">
+          <ScrollReveal direction="up" delay={0.2} className="lg:col-span-4 relative flex items-center justify-center py-12 lg:py-0">
             <div className="relative w-64 h-80 flex items-center justify-center">
               {/* Glow Behind */}
               <div className="absolute inset-0 bg-[#00D9FF]/10 rounded-full blur-[40px]"></div>
@@ -36,8 +44,10 @@ export const SecurityPlatform: React.FC = () => {
               <div className="absolute inset-[-10%] rounded-full border border-[#00D9FF]/20 border-dashed animate-[spin_40s_linear_infinite_reverse]"></div>
               
               {/* Core Shield Component */}
-              <div className="relative w-full h-full bg-[#05101A]/90 backdrop-blur-md border border-[#00D9FF]/60 rounded-2xl flex flex-col items-center justify-center shadow-[0_0_20px_rgba(0,217,255,0.15)] overflow-hidden z-10">
-                
+              <motion.div 
+                whileHover={{ scale: 1.05 }}
+                className="relative w-full h-full bg-[#05101A]/90 backdrop-blur-md border border-[#00D9FF]/60 rounded-2xl flex flex-col items-center justify-center shadow-[0_0_20px_rgba(0,217,255,0.15)] overflow-hidden z-10 cursor-pointer transition-shadow hover:shadow-[0_0_35px_rgba(0,217,255,0.3)]"
+              >
                 <div className="absolute inset-0 opacity-10 bg-[linear-gradient(rgba(0,217,255,1)_1px,transparent_1px),linear-gradient(90deg,rgba(0,217,255,1)_1px,transparent_1px)] bg-[size:10px_10px]"></div>
 
                 <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-[#00D9FF]/80 to-transparent"></div>
@@ -55,19 +65,23 @@ export const SecurityPlatform: React.FC = () => {
                     REAL-TIME MONITORING
                   </div>
                 </div>
-              </div>
+              </motion.div>
 
               {/* Decorative Connections */}
               <div className="absolute top-1/2 -left-[50%] w-[50%] h-[1px] bg-gradient-to-r from-transparent to-[#00D9FF]/40 hidden lg:block"></div>
               <div className="absolute top-1/2 -right-[50%] w-[50%] h-[1px] bg-gradient-to-l from-transparent to-[#00D9FF]/40 hidden lg:block"></div>
             </div>
-          </div>
+          </ScrollReveal>
 
           {/* Right Column */}
           <div className="lg:col-span-4 flex flex-col gap-4">
-            {securityFeaturesRight.map((feature, idx) => (
-              <FeatureItem key={idx} text={feature} align="left" />
-            ))}
+            <StaggerContainer staggerDelay={0.1}>
+              {securityFeaturesRight.map((feature, idx) => (
+                <StaggerItem key={idx}>
+                  <FeatureItem text={feature} align="left" />
+                </StaggerItem>
+              ))}
+            </StaggerContainer>
           </div>
 
         </div>
@@ -78,9 +92,10 @@ export const SecurityPlatform: React.FC = () => {
 
 const FeatureItem: React.FC<{ text: string, align: 'left' | 'right' }> = ({ text, align }) => {
   return (
-    <div 
+    <motion.div 
+      whileHover={{ scale: 1.03, x: align === 'left' ? 4 : -4 }}
       className={cn(
-        "flex items-center gap-3 p-3 rounded-lg border border-transparent hover:bg-[#071625]/50 hover:border-[#00D9FF]/20 transition-all duration-300",
+        "flex items-center gap-3 p-3 rounded-lg border border-transparent hover:bg-[#071625]/80 hover:border-[#00D9FF]/30 transition-all duration-300 cursor-default",
         align === 'right' ? "lg:flex-row-reverse text-left lg:text-right" : "flex-row text-left"
       )}
     >
@@ -88,6 +103,6 @@ const FeatureItem: React.FC<{ text: string, align: 'left' | 'right' }> = ({ text
         <ShieldAlert className="w-4 h-4 text-[#00D9FF]" />
       </div>
       <span className="text-[#F5F7FA] font-medium text-sm">{text}</span>
-    </div>
+    </motion.div>
   );
 };

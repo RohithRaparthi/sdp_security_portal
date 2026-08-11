@@ -1,6 +1,8 @@
 import React from 'react';
 import { SectionHeader } from '../common/SectionHeader';
 import { Target, Lightbulb, Brain, Shield, Clock, Award, Zap, Lock, Users, Activity } from 'lucide-react';
+import { ScrollReveal, StaggerContainer, StaggerItem } from '../common/ScrollReveal';
+import { motion } from 'framer-motion';
 
 export const AboutSection: React.FC = () => {
   return (
@@ -11,47 +13,60 @@ export const AboutSection: React.FC = () => {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
           
           {/* Content */}
-          <div>
-            <SectionHeader 
-              title="ABOUT SDP INNOVATION" 
-              subtitle="Company"
-              align="left"
-              className="mb-8"
-            />
-            
-            <div className="space-y-6 text-[#A8B4C3] text-lg leading-relaxed mb-12">
-              <p>
-                SDP Innovation Pvt. Ltd. is a forward-thinking technology company focused on building secure, intelligent, and scalable digital solutions.
-              </p>
-              <p>
-                We combine artificial intelligence, cybersecurity, software engineering, and cloud technologies to help businesses communicate securely, operate efficiently, and innovate confidently.
-              </p>
-            </div>
+          <ScrollReveal direction="right" delay={0.1}>
+            <div>
+              <SectionHeader 
+                title="ABOUT SDP INNOVATION" 
+                subtitle="Company"
+                align="left"
+                className="mb-8"
+              />
+              
+              <div className="space-y-6 text-[#A8B4C3] text-lg leading-relaxed mb-12">
+                <p>
+                  SDP Innovation Pvt. Ltd. is a forward-thinking technology company focused on building secure, intelligent, and scalable digital solutions.
+                </p>
+                <p>
+                  We combine artificial intelligence, cybersecurity, software engineering, and cloud technologies to help businesses communicate securely, operate efficiently, and innovate confidently.
+                </p>
+              </div>
 
-            {/* About Badges */}
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-              <div className="flex flex-col items-center justify-center p-4 bg-[#071625] border border-[#00D9FF]/20 rounded-lg text-center">
-                <Brain className="w-6 h-6 text-[#8CC63F] mb-3" />
-                <span className="text-[10px] font-bold text-[#A8B4C3] uppercase tracking-wider">AI-Powered<br/>Solutions</span>
-              </div>
-              <div className="flex flex-col items-center justify-center p-4 bg-[#071625] border border-[#00D9FF]/20 rounded-lg text-center">
-                <Shield className="w-6 h-6 text-[#8CC63F] mb-3" />
-                <span className="text-[10px] font-bold text-[#A8B4C3] uppercase tracking-wider">Security<br/>First</span>
-              </div>
-              <div className="flex flex-col items-center justify-center p-4 bg-[#071625] border border-[#00D9FF]/20 rounded-lg text-center">
-                <Clock className="w-6 h-6 text-[#8CC63F] mb-3" />
-                <span className="text-[10px] font-bold text-[#A8B4C3] uppercase tracking-wider">24/7<br/>Monitoring</span>
-              </div>
-              <div className="flex flex-col items-center justify-center p-4 bg-[#071625] border border-[#00D9FF]/20 rounded-lg text-center">
-                <Award className="w-6 h-6 text-[#8CC63F] mb-3" />
-                <span className="text-[10px] font-bold text-[#A8B4C3] uppercase tracking-wider">Enterprise<br/>Ready</span>
-              </div>
+              {/* About Badges */}
+              <StaggerContainer staggerDelay={0.08} className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+                <StaggerItem>
+                  <motion.div whileHover={{ y: -4, borderColor: "rgba(0,217,255,0.4)" }} className="flex flex-col items-center justify-center p-4 bg-[#071625] border border-[#00D9FF]/20 rounded-lg text-center cursor-default transition-colors">
+                    <Brain className="w-6 h-6 text-[#8CC63F] mb-3" />
+                    <span className="text-[10px] font-bold text-[#A8B4C3] uppercase tracking-wider">AI-Powered<br/>Solutions</span>
+                  </motion.div>
+                </StaggerItem>
+                <StaggerItem>
+                  <motion.div whileHover={{ y: -4, borderColor: "rgba(0,217,255,0.4)" }} className="flex flex-col items-center justify-center p-4 bg-[#071625] border border-[#00D9FF]/20 rounded-lg text-center cursor-default transition-colors">
+                    <Shield className="w-6 h-6 text-[#8CC63F] mb-3" />
+                    <span className="text-[10px] font-bold text-[#A8B4C3] uppercase tracking-wider">Security<br/>First</span>
+                  </motion.div>
+                </StaggerItem>
+                <StaggerItem>
+                  <motion.div whileHover={{ y: -4, borderColor: "rgba(0,217,255,0.4)" }} className="flex flex-col items-center justify-center p-4 bg-[#071625] border border-[#00D9FF]/20 rounded-lg text-center cursor-default transition-colors">
+                    <Clock className="w-6 h-6 text-[#8CC63F] mb-3" />
+                    <span className="text-[10px] font-bold text-[#A8B4C3] uppercase tracking-wider">24/7<br/>Monitoring</span>
+                  </motion.div>
+                </StaggerItem>
+                <StaggerItem>
+                  <motion.div whileHover={{ y: -4, borderColor: "rgba(0,217,255,0.4)" }} className="flex flex-col items-center justify-center p-4 bg-[#071625] border border-[#00D9FF]/20 rounded-lg text-center cursor-default transition-colors">
+                    <Award className="w-6 h-6 text-[#8CC63F] mb-3" />
+                    <span className="text-[10px] font-bold text-[#A8B4C3] uppercase tracking-wider">Enterprise<br/>Ready</span>
+                  </motion.div>
+                </StaggerItem>
+              </StaggerContainer>
             </div>
-          </div>
+          </ScrollReveal>
 
           {/* Vision/Mission Cards */}
-          <div className="flex flex-col gap-6">
-            <div className="bg-[#071625]/80 border border-[#00D9FF]/20 rounded-2xl p-8 backdrop-blur-sm relative overflow-hidden group hover:border-[#00D9FF]/40 transition-colors">
+          <ScrollReveal direction="left" delay={0.2} className="flex flex-col gap-6">
+            <motion.div 
+              whileHover={{ scale: 1.02, borderColor: "rgba(0,217,255,0.5)" }}
+              className="bg-[#071625]/80 border border-[#00D9FF]/20 rounded-2xl p-8 backdrop-blur-sm relative overflow-hidden group transition-all shadow-sm hover:shadow-[0_8px_30px_rgba(0,217,255,0.15)]"
+            >
               <div className="absolute -right-10 -top-10 w-32 h-32 bg-[#00D9FF]/10 rounded-full blur-[30px] group-hover:bg-[#00D9FF]/20 transition-colors"></div>
               
               <div className="flex items-center gap-4 mb-4 relative z-10">
@@ -63,9 +78,12 @@ export const AboutSection: React.FC = () => {
               <p className="text-[#A8B4C3] leading-relaxed relative z-10">
                 To become a global leader in AI-driven security solutions that empower organizations to operate in a safer, smarter, and connected digital world.
               </p>
-            </div>
+            </motion.div>
 
-            <div className="bg-[#071625]/80 border border-[#8CC63F]/20 rounded-2xl p-8 backdrop-blur-sm relative overflow-hidden group hover:border-[#8CC63F]/40 transition-colors">
+            <motion.div 
+              whileHover={{ scale: 1.02, borderColor: "rgba(140,198,63,0.5)" }}
+              className="bg-[#071625]/80 border border-[#8CC63F]/20 rounded-2xl p-8 backdrop-blur-sm relative overflow-hidden group transition-all shadow-sm hover:shadow-[0_8px_30px_rgba(140,198,63,0.15)]"
+            >
               <div className="absolute -right-10 -top-10 w-32 h-32 bg-[#8CC63F]/10 rounded-full blur-[30px] group-hover:bg-[#8CC63F]/20 transition-colors"></div>
               
               <div className="flex items-center gap-4 mb-4 relative z-10">
@@ -77,28 +95,28 @@ export const AboutSection: React.FC = () => {
               <p className="text-[#A8B4C3] leading-relaxed relative z-10">
                 To innovate and deliver secure, scalable, and intelligent AI applications that protect businesses and simplify lives.
               </p>
-            </div>
+            </motion.div>
 
             {/* Vision/Mission Badges */}
             <div className="flex flex-wrap justify-between items-center gap-4 mt-4 pt-6 border-t border-[#00D9FF]/10">
-              <div className="flex flex-col items-center gap-2 group">
+              <motion.div whileHover={{ scale: 1.1 }} className="flex flex-col items-center gap-2 group cursor-default">
                 <Zap className="w-5 h-5 text-[#8CC63F] group-hover:text-[#00D9FF] transition-colors" />
                 <span className="text-[11px] font-bold text-[#A8B4C3] tracking-widest">INNOVATE</span>
-              </div>
-              <div className="flex flex-col items-center gap-2 group">
+              </motion.div>
+              <motion.div whileHover={{ scale: 1.1 }} className="flex flex-col items-center gap-2 group cursor-default">
                 <Lock className="w-5 h-5 text-[#8CC63F] group-hover:text-[#00D9FF] transition-colors" />
                 <span className="text-[11px] font-bold text-[#A8B4C3] tracking-widest">PROTECT</span>
-              </div>
-              <div className="flex flex-col items-center gap-2 group">
+              </motion.div>
+              <motion.div whileHover={{ scale: 1.1 }} className="flex flex-col items-center gap-2 group cursor-default">
                 <Users className="w-5 h-5 text-[#8CC63F] group-hover:text-[#00D9FF] transition-colors" />
                 <span className="text-[11px] font-bold text-[#A8B4C3] tracking-widest">EMPOWER</span>
-              </div>
-              <div className="flex flex-col items-center gap-2 group">
+              </motion.div>
+              <motion.div whileHover={{ scale: 1.1 }} className="flex flex-col items-center gap-2 group cursor-default">
                 <Activity className="w-5 h-5 text-[#8CC63F] group-hover:text-[#00D9FF] transition-colors" />
                 <span className="text-[11px] font-bold text-[#A8B4C3] tracking-widest">TRANSFORM</span>
-              </div>
+              </motion.div>
             </div>
-          </div>
+          </ScrollReveal>
 
         </div>
       </div>

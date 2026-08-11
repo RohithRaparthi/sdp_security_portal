@@ -1,6 +1,8 @@
 import React from 'react';
 import { SectionHeader } from '../common/SectionHeader';
 import { User, Fingerprint, Layout, Network, Database, Server, Shield } from 'lucide-react';
+import { ScrollReveal, StaggerContainer, StaggerItem } from '../common/ScrollReveal';
+import { motion } from 'framer-motion';
 
 export const SecurityArchitecture: React.FC = () => {
   const layers = [
@@ -16,11 +18,13 @@ export const SecurityArchitecture: React.FC = () => {
   return (
     <section className="py-24 relative overflow-hidden bg-[#020712] border-t border-[#00D9FF]/10">
       <div className="max-w-[1000px] mx-auto px-6 relative z-10">
-        <SectionHeader 
-          title="SECURITY BY DESIGN" 
-          subtitle="Architecture"
-          description="A multi-layered defense strategy ensuring protection at every level of the technology stack."
-        />
+        <ScrollReveal direction="up">
+          <SectionHeader 
+            title="SECURITY BY DESIGN" 
+            subtitle="Architecture"
+            description="A multi-layered defense strategy ensuring protection at every level of the technology stack."
+          />
+        </ScrollReveal>
 
         <div className="mt-16 relative">
           
@@ -30,22 +34,25 @@ export const SecurityArchitecture: React.FC = () => {
           {/* Connecting Line (Vertical Mobile/Tablet) */}
           <div className="lg:hidden absolute left-[27px] top-0 bottom-0 w-[2px] bg-gradient-to-b from-[#00D9FF]/10 via-[#00D9FF]/50 to-[#00D9FF]"></div>
 
-          <div className="flex flex-col lg:flex-row justify-between relative z-10 gap-8 lg:gap-4">
+          <StaggerContainer staggerDelay={0.12} className="flex flex-col lg:flex-row justify-between relative z-10 gap-8 lg:gap-4">
             {layers.map((layer, index) => {
               const Icon = layer.icon;
               const isLast = index === layers.length - 1;
               
               return (
-                <div key={index} className="flex flex-row lg:flex-col items-center lg:items-center gap-6 lg:gap-4 relative group lg:flex-1">
+                <StaggerItem key={index} className="flex flex-row lg:flex-col items-center lg:items-center gap-6 lg:gap-4 relative group lg:flex-1">
                   
                   {/* Node */}
-                  <div className="relative z-10 w-14 h-14 shrink-0 rounded-full bg-[#030B16] border-2 border-[#00D9FF] flex items-center justify-center shadow-[0_0_15px_rgba(0,217,255,0.2)] group-hover:bg-[#00D9FF]/10 transition-colors">
+                  <motion.div 
+                    whileHover={{ scale: 1.15, rotate: 5 }}
+                    className="relative z-10 w-14 h-14 shrink-0 rounded-full bg-[#030B16] border-2 border-[#00D9FF] flex items-center justify-center shadow-[0_0_15px_rgba(0,217,255,0.2)] group-hover:bg-[#00D9FF]/20 group-hover:shadow-[0_0_25px_rgba(0,217,255,0.4)] transition-all duration-300 cursor-pointer"
+                  >
                     <Icon className="text-[#00D9FF] w-6 h-6" />
-                  </div>
+                  </motion.div>
 
                   {/* Content */}
                   <div className="flex-1 lg:text-center w-full">
-                    <div className="bg-[#071625]/60 border border-[#00D9FF]/10 p-3 rounded-xl backdrop-blur-sm group-hover:border-[#00D9FF]/30 transition-colors">
+                    <div className="bg-[#071625]/60 border border-[#00D9FF]/10 p-3 rounded-xl backdrop-blur-sm group-hover:border-[#00D9FF]/40 transition-colors">
                       <h4 className="text-[#F5F7FA] font-bold text-sm xl:text-base whitespace-nowrap">{layer.title}</h4>
                       <p className="text-[#A8B4C3] text-xs mt-1">{layer.desc}</p>
                     </div>
@@ -58,10 +65,10 @@ export const SecurityArchitecture: React.FC = () => {
                     </div>
                   )}
 
-                </div>
+                </StaggerItem>
               );
             })}
-          </div>
+          </StaggerContainer>
         </div>
       </div>
     </section>

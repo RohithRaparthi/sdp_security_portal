@@ -1,5 +1,7 @@
 import React from 'react';
 import { SectionHeader } from '../common/SectionHeader';
+import { ScrollReveal, StaggerContainer, StaggerItem } from '../common/ScrollReveal';
+import { motion } from 'framer-motion';
 
 export const TechnologyStack: React.FC = () => {
   const techCategories = [
@@ -53,39 +55,45 @@ export const TechnologyStack: React.FC = () => {
   return (
     <section id="technology" className="py-24 relative bg-[#020712] border-t border-[#00D9FF]/10">
       <div className="max-w-[1320px] mx-auto px-6 relative z-10">
-        <SectionHeader 
-          title="TECHNOLOGY STACK" 
-          subtitle="Infrastructure"
-          align="left"
-        />
+        <ScrollReveal direction="up">
+          <SectionHeader 
+            title="TECHNOLOGY STACK" 
+            subtitle="Infrastructure"
+            align="left"
+          />
+        </ScrollReveal>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 mt-12">
+        <StaggerContainer staggerDelay={0.1} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 mt-12">
           {techCategories.map((category, idx) => (
-            <div key={idx} className="flex flex-col">
+            <StaggerItem key={idx} className="flex flex-col">
               <h3 className="text-[#A8B4C3] font-bold text-xs uppercase tracking-widest mb-6 pb-2 border-b border-[#1A2E44]">
                 {category.title}
               </h3>
               
               <div className="flex flex-col gap-4">
                 {category.items.map((tech) => (
-                  <div key={tech.name} className="flex items-center gap-3 group">
+                  <motion.div 
+                    key={tech.name} 
+                    whileHover={{ x: 4 }}
+                    className="flex items-center gap-3 group cursor-default"
+                  >
                     <div 
-                      className="w-8 h-8 rounded bg-[#05101A] border border-[#1A2E44] flex items-center justify-center group-hover:border-opacity-50 transition-colors shrink-0"
-                      style={{ borderColor: `${tech.color}40` }}
+                      className="w-8 h-8 rounded bg-[#05101A] border border-[#1A2E44] flex items-center justify-center group-hover:border-opacity-100 transition-all shrink-0"
+                      style={{ borderColor: `${tech.color}50` }}
                     >
                       <span className="text-[10px] font-bold" style={{ color: tech.color }}>
                         {tech.short}
                       </span>
                     </div>
-                    <span className="text-sm font-medium text-[#F5F7FA] group-hover:text-white transition-colors">
+                    <span className="text-sm font-medium text-[#F5F7FA] group-hover:text-[#00D9FF] transition-colors">
                       {tech.name}
                     </span>
-                  </div>
+                  </motion.div>
                 ))}
               </div>
-            </div>
+            </StaggerItem>
           ))}
-        </div>
+        </StaggerContainer>
       </div>
     </section>
   );
