@@ -1,11 +1,15 @@
-import React, { useState, useEffect } from 'react';
-import { Menu, X } from 'lucide-react';
+import React, { useState, useEffect, useRef } from 'react';
+import { Menu, X, ChevronDown, Sparkles, Shirt, ShieldCheck, Lock } from 'lucide-react';
 import { GlowButton } from '../common/GlowButton';
 import { cn } from '../../utils/cn';
+import { useNavigation, type PageId } from '../../utils/router';
 
 export const Navbar: React.FC = () => {
+  const { currentPage, navigateTo } = useNavigation();
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isProductsDropdownOpen, setIsProductsDropdownOpen] = useState(false);
+  const dropdownRef = useRef<HTMLLIElement>(null);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -15,98 +19,274 @@ export const Navbar: React.FC = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  // Close dropdown on outside click
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setIsProductsDropdownOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
+
   const navLinks = [
-    { name: 'Home', href: '#' },
-    { name: 'Products', href: '#products' },
-    { name: 'Security', href: '#security' },
-    { name: 'Services', href: '#services' },
-    { name: 'Technology', href: '#technology' },
-    { name: 'About Us', href: '#about' },
-    { name: 'Contact', href: '#contact' },
+    { name: 'Products', isDropdown: true },
+    { name: 'Security', action: () => navigateTo('home', '#security-architecture') },
+    { name: 'Solutions', action: () => navigateTo('home', '#services') },
+    { name: 'Company', action: () => navigateTo('home', '#about') },
   ];
+
+  const aiProducts: Array<{ id: PageId; name: string; subtitle: string; icon: React.ReactNode; color: string; badge: string; preview: string; cta: string }> = [
+    {
+      id: 'ai-build',
+      name: 'AI BUILD SECURITY',
+      subtitle: 'Zero-Trust AI Firewall & Real-Time SOC Portal',
+      icon: <ShieldCheck className="w-5 h-5 text-[#00D9FF]" />,
+      color: 'border-[#00D9FF]/40 hover:border-[#00D9FF]',
+      badge: 'FLAGSHIP SOC',
+      preview: 'Pre-inference threat intelligence & prompt injection AST defense.',
+      cta: 'Open Console →'
+    },
+    {
+      id: 's-chat',
+      name: 'S-CHAT AI',
+      subtitle: 'Post-Quantum Encrypted Communication Platform',
+      icon: <Lock className="w-5 h-5 text-[#8CC63F]" />,
+      color: 'border-[#8CC63F]/40 hover:border-[#8CC63F]',
+      badge: 'KYBER-1024',
+      preview: 'Post-Quantum key encapsulation & hardware anti-screen capture.',
+      cta: 'Launch Chat →'
+    },
+    {
+      id: 'outfit-ai',
+      name: 'OUTFIT AI',
+      subtitle: 'Spatial Generative Fashion & 3D Dressing Room',
+      icon: <Shirt className="w-5 h-5 text-[#A855F7]" />,
+      color: 'border-[#A855F7]/40 hover:border-[#A855F7]',
+      badge: 'SPATIAL 3D',
+      preview: '85+ body measurement points with sub-600ms neural fabric drape.',
+      cta: 'Launch Studio →'
+    }
+  ];
+
+  const handleProductSelect = (pageId: PageId) => {
+    setIsProductsDropdownOpen(false);
+    setIsMobileMenuOpen(false);
+    navigateTo(pageId);
+  };
 
   return (
     <nav className={cn(
-      "fixed top-0 left-0 right-0 z-50 transition-all duration-300 border-b",
-      isScrolled 
-        ? "bg-[#020712]/90 backdrop-blur-md border-[#00D9FF]/10 shadow-lg shadow-black/20 py-2" 
-        : "bg-transparent border-transparent py-4"
+      "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
+      isScrolled || currentPage !== 'home'
+        ? "bg-[#020712]/90 backdrop-blur-xl border-b border-[#00D9FF]/20 shadow-2xl py-3" 
+        : "bg-transparent border-b border-transparent py-5"
     )}>
-      <div className="max-w-[1320px] mx-auto px-6 flex items-center justify-between">
+      <div className="max-w-[1400px] mx-auto px-6 sm:px-8 flex items-center justify-between">
         
         {/* Logo */}
-        <div className="flex items-center gap-3 z-50">
-          <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-[#8CC63F] to-[#4D7C0F] flex items-center justify-center shadow-[0_0_15px_rgba(140,198,63,0.3)]">
-            <span className="text-[#020712] font-black text-xl tracking-tighter">S</span>
+        <div 
+          onClick={() => navigateTo('home')}
+          className="flex items-center gap-3 z-50 cursor-pointer group"
+        >
+          <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#8CC63F] via-[#00D9FF] to-[#A855F7] flex items-center justify-center shadow-[0_0_25px_rgba(0,217,255,0.4)] group-hover:scale-105 transition-transform p-[2px]">
+            <div className="w-full h-full bg-[#020712] rounded-[10px] flex items-center justify-center">
+              <span className="text-[#00D9FF] font-black text-xl tracking-tighter">S</span>
+            </div>
           </div>
-          <div className="hidden md:flex flex-col">
-            <span className="text-[#F5F7FA] font-bold text-lg leading-tight tracking-wide">SDP</span>
-            <span className="text-[#A8B4C3] text-[10px] leading-tight font-medium">Secure Data Protection<br/>Innovations Pvt. Ltd.</span>
+          <div className="flex flex-col">
+            <span className="text-[#F5F7FA] font-black text-lg leading-tight tracking-wider group-hover:text-[#00D9FF] transition-colors font-mono">
+              SDP
+            </span>
+            <span className="text-[#A8B4C3] text-[9px] leading-tight font-mono uppercase tracking-wider">
+              Innovation Pvt. Ltd.
+            </span>
           </div>
         </div>
 
-        {/* Desktop Navigation */}
+        {/* Desktop Navigation Links */}
         <div className="hidden lg:flex items-center gap-8">
           <ul className="flex items-center gap-8">
-            {navLinks.map((link) => (
+            
+            {/* Products Mega Dropdown Link */}
+            <li className="relative" ref={dropdownRef}>
+              <button
+                onClick={() => setIsProductsDropdownOpen(!isProductsDropdownOpen)}
+                className={cn(
+                  "text-xs font-mono font-bold uppercase tracking-wider flex items-center gap-1.5 py-1 transition-colors cursor-pointer",
+                  currentPage !== 'home' ? "text-[#00D9FF]" : "text-[#A8B4C3] hover:text-[#00D9FF]"
+                )}
+              >
+                <Sparkles size={13} className="text-[#00D9FF]" />
+                <span>Products</span>
+                <ChevronDown size={13} className={cn("transition-transform duration-200", isProductsDropdownOpen ? "rotate-180" : "")} />
+              </button>
+
+              {/* Large Visual Mega Menu */}
+              {isProductsDropdownOpen && (
+                <div className="absolute top-full left-1/2 -translate-x-1/2 mt-4 w-[800px] bg-[#05101A]/95 border border-[#00D9FF]/40 rounded-3xl p-6 shadow-[0_25px_60px_rgba(0,0,0,0.8)] backdrop-blur-2xl animate-in fade-in slide-in-from-top-2 duration-200 z-50">
+                  <div className="px-2 pb-4 border-b border-[#1A2E44] mb-4 flex items-center justify-between font-mono text-xs">
+                    <span className="font-bold text-[#F5F7FA] uppercase tracking-wider">
+                      SDP Intelligent AI Worlds
+                    </span>
+                    <span className="text-[#00D9FF]">3 DEDICATED PLATFORMS</span>
+                  </div>
+
+                  <div className="grid grid-cols-3 gap-4">
+                    {aiProducts.map((prod) => (
+                      <div
+                        key={prod.id}
+                        onClick={() => handleProductSelect(prod.id)}
+                        className={cn(
+                          "p-4 rounded-2xl bg-[#020712] border transition-all cursor-pointer flex flex-col justify-between group/card hover:scale-[1.02]",
+                          prod.color
+                        )}
+                      >
+                        <div>
+                          <div className="flex items-center justify-between mb-3">
+                            <div className="p-2 rounded-xl bg-[#071625] border border-white/10">
+                              {prod.icon}
+                            </div>
+                            <span className="text-[9px] font-mono font-bold px-2 py-0.5 rounded bg-white/5 border border-white/10 text-[#A8B4C3]">
+                              {prod.badge}
+                            </span>
+                          </div>
+                          <h5 className="text-sm font-bold text-[#F5F7FA] group-hover/card:text-white transition-colors mb-1">
+                            {prod.name}
+                          </h5>
+                          <p className="text-[11px] text-[#A8B4C3] leading-relaxed mb-4">
+                            {prod.preview}
+                          </p>
+                        </div>
+
+                        <span className="text-xs font-mono font-bold text-[#00D9FF] flex items-center gap-1 group-hover/card:translate-x-1 transition-transform">
+                          {prod.cta}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+
+                  <div className="mt-4 pt-3 border-t border-[#1A2E44] flex items-center justify-between text-xs font-mono text-[#A8B4C3]">
+                    <span>Select any product to enter its dedicated interactive world</span>
+                    <span className="text-[#8CC63F]">&check; 100% Zero-Trust Hardware Gated</span>
+                  </div>
+                </div>
+              )}
+            </li>
+
+            {/* Standard Nav Items */}
+            {navLinks.filter(l => !l.isDropdown).map((link) => (
               <li key={link.name}>
-                <a 
-                  href={link.href} 
-                  className="text-sm font-medium text-[#A8B4C3] hover:text-[#00D9FF] transition-colors relative group"
+                <button 
+                  onClick={link.action}
+                  className="text-xs font-mono font-bold uppercase tracking-wider text-[#A8B4C3] hover:text-[#00D9FF] transition-colors cursor-pointer"
                 >
                   {link.name}
-                  <span className="absolute -bottom-1 left-0 w-0 h-[2px] bg-[#00D9FF] transition-all duration-300 group-hover:w-full rounded-full glow-cyan"></span>
-                </a>
+                </button>
               </li>
             ))}
+
           </ul>
         </div>
 
-        {/* CTA Buttons */}
-        <div className="hidden lg:flex items-center gap-4">
-          <a href="#contact" className="text-sm font-medium text-[#F5F7FA] hover:text-[#00D9FF] transition-colors">
-            Talk to Sales
-          </a>
-          <GlowButton variant="secondary" className="py-2 px-5 text-sm">
-            Request Demo
-          </GlowButton>
+        {/* Action Button: Launch Console */}
+        <div className="hidden lg:flex items-center gap-3">
+          {currentPage !== 'home' ? (
+            <button
+              onClick={() => navigateTo('home')}
+              className="px-4 py-2 text-xs font-mono font-bold uppercase tracking-wider rounded-xl bg-[#071625] border border-[#00D9FF]/40 text-[#00D9FF] hover:bg-[#00D9FF]/10 transition-all cursor-pointer"
+            >
+              &larr; Overview
+            </button>
+          ) : (
+            <GlowButton 
+              variant="primary" 
+              className="py-2.5 px-6 text-xs font-mono font-bold uppercase tracking-wider shadow-[0_0_20px_rgba(0,217,255,0.3)] cursor-pointer"
+              onClick={() => navigateTo('ai-build')}
+            >
+              Launch Console
+            </GlowButton>
+          )}
         </div>
 
-        {/* Mobile Menu Toggle */}
+        {/* Mobile Toggle Button */}
         <button 
-          className="lg:hidden text-[#F5F7FA] p-2 z-50"
+          className="lg:hidden text-[#F5F7FA] p-2 z-50 rounded-xl bg-[#071625] border border-[#1A2E44]"
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-          aria-label="Toggle menu"
+          aria-label="Toggle navigation menu"
         >
-          {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+          {isMobileMenuOpen ? <X size={22} /> : <Menu size={22} />}
         </button>
 
       </div>
 
-      {/* Mobile Navigation */}
+      {/* Mobile Drawer */}
       <div className={cn(
-        "fixed inset-0 bg-[#020712]/95 backdrop-blur-xl z-40 lg:hidden flex flex-col justify-center items-center transition-all duration-300 ease-in-out",
+        "fixed inset-0 bg-[#020712]/98 backdrop-blur-2xl z-40 lg:hidden flex flex-col justify-between p-6 pt-24 transition-all duration-300 ease-in-out",
         isMobileMenuOpen ? "opacity-100 visible" : "opacity-0 invisible pointer-events-none"
       )}>
-        <ul className="flex flex-col items-center gap-6 mb-10">
-          {navLinks.map((link) => (
-            <li key={link.name}>
-              <a 
-                href={link.href} 
-                className="text-xl font-semibold text-[#F5F7FA] hover:text-[#00D9FF] transition-colors"
-                onClick={() => setIsMobileMenuOpen(false)}
-              >
-                {link.name}
-              </a>
-            </li>
-          ))}
-        </ul>
-        <div className="flex flex-col gap-4 w-[200px]">
-          <GlowButton variant="secondary" onClick={() => setIsMobileMenuOpen(false)}>
-            Talk to Sales
-          </GlowButton>
-          <GlowButton variant="primary" onClick={() => setIsMobileMenuOpen(false)}>
-            Request Demo
+        <div className="flex flex-col gap-6 overflow-y-auto">
+          <div>
+            <span className="text-xs font-mono font-bold text-[#A8B4C3] uppercase tracking-wider block mb-3">Navigation</span>
+            <ul className="flex flex-col gap-3">
+              <li>
+                <button 
+                  onClick={() => {
+                    setIsMobileMenuOpen(false);
+                    navigateTo('home');
+                  }}
+                  className="text-lg font-bold text-[#F5F7FA] hover:text-[#00D9FF] transition-colors py-1 w-full text-left"
+                >
+                  Home Overview
+                </button>
+              </li>
+              {navLinks.filter(l => !l.isDropdown).map((link) => (
+                <li key={link.name}>
+                  <button 
+                    onClick={() => {
+                      setIsMobileMenuOpen(false);
+                      link.action?.();
+                    }}
+                    className="text-lg font-bold text-[#F5F7FA] hover:text-[#00D9FF] transition-colors py-1 w-full text-left"
+                  >
+                    {link.name}
+                  </button>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div className="pt-4 border-t border-[#1A2E44]">
+            <span className="text-xs font-mono font-bold text-[#00D9FF] uppercase tracking-wider block mb-3">Dedicated AI Product Worlds</span>
+            <div className="flex flex-col gap-2">
+              {aiProducts.map((prod) => (
+                <button
+                  key={prod.id}
+                  onClick={() => handleProductSelect(prod.id)}
+                  className="p-3.5 rounded-2xl bg-[#05101A] border border-[#1A2E44] flex items-center gap-3 text-left hover:border-[#00D9FF]/40"
+                >
+                  <div className="p-2 rounded-xl bg-[#071625]">{prod.icon}</div>
+                  <div>
+                    <h5 className="text-sm font-bold text-[#F5F7FA]">{prod.name}</h5>
+                    <p className="text-xs text-[#A8B4C3] line-clamp-1">{prod.subtitle}</p>
+                  </div>
+                </button>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        <div className="pt-6 border-t border-[#1A2E44]">
+          <GlowButton 
+            variant="primary" 
+            className="w-full py-3 text-xs font-mono font-bold uppercase"
+            onClick={() => {
+              setIsMobileMenuOpen(false);
+              navigateTo('ai-build');
+            }}
+          >
+            Launch Console
           </GlowButton>
         </div>
       </div>

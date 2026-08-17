@@ -1,46 +1,63 @@
 import React from 'react';
-import { Navbar } from '../components/layout/Navbar';
-import { Footer } from '../components/layout/Footer';
 import { HeroSection } from '../components/hero/HeroSection';
-import { TrustStrip } from '../components/hero/TrustStrip';
-import { ProductsSection } from '../components/products/ProductsSection';
+import { LiveStatusStrip } from '../components/hero/LiveStatusStrip';
+import { ProductDiscoveryUniverse } from '../components/products/ProductDiscoveryUniverse';
 import { SChatSection } from '../components/products/SChatSection';
 import { OutfitAISection } from '../components/products/OutfitAISection';
 import { SecurityPortalSection } from '../components/products/SecurityPortalSection';
-import { SecurityPlatform } from '../components/security/SecurityPlatform';
 import { SecurityArchitecture } from '../components/security/SecurityArchitecture';
 import { ServicesSection } from '../components/services/ServicesSection';
 import { TechnologyStack } from '../components/technology/TechnologyStack';
 import { DevelopmentProcess } from '../components/process/DevelopmentProcess';
 import { WhyChooseUs } from '../components/about/WhyChooseUs';
 import { IndustriesSection } from '../components/industries/IndustriesSection';
-import { AboutSection } from '../components/about/AboutSection';
-import { FinalCTA } from '../components/about/FinalCTA';
+import { CompanyStory } from '../components/about/CompanyStory';
+import { InnovationLaunchpad } from '../components/about/InnovationLaunchpad';
 
 export const Home: React.FC = () => {
   return (
-    <div className="min-h-screen flex flex-col bg-[#020712] text-[#F5F7FA]">
-      <Navbar />
-      
-      <main className="flex-grow">
-        <HeroSection />
-        <TrustStrip />
-        <ProductsSection />
-        <SChatSection />
-        <OutfitAISection />
-        <SecurityPortalSection />
-        <SecurityPlatform />
-        <SecurityArchitecture />
-        <ServicesSection />
-        <TechnologyStack />
-        <DevelopmentProcess />
-        <WhyChooseUs />
-        <IndustriesSection />
-        <AboutSection />
-        <FinalCTA />
-      </main>
+    <main className="flex-grow w-full overflow-hidden">
+      {/* 01 Hero */}
+      <HeroSection />
 
-      <Footer />
-    </div>
+      {/* 02 Live System Status */}
+      <LiveStatusStrip />
+
+      {/* 03 Product Discovery */}
+      <ProductDiscoveryUniverse />
+
+      {/* 04 S-Chat Preview */}
+      <SChatSection />
+
+      {/* 05 Outfit AI Preview */}
+      <OutfitAISection />
+
+      {/* 06 AI Build Security Preview */}
+      <SecurityPortalSection />
+
+      {/* 07 Security Architecture */}
+      <SecurityArchitecture />
+
+      {/* 08 Services (Horizontal Discovery Rail) */}
+      <ServicesSection />
+
+      {/* 09 Technology Ecosystem */}
+      <TechnologyStack />
+
+      {/* 10 Development Process */}
+      <DevelopmentProcess />
+
+      {/* 11 Why SDP (4 Evidence Cards) */}
+      <WhyChooseUs />
+
+      {/* 12 Industries (Horizontal Rail) */}
+      <IndustriesSection />
+
+      {/* 13 Company Story */}
+      <CompanyStory />
+
+      {/* 14 Innovation Launchpad */}
+      <InnovationLaunchpad />
+    </main>
   );
 };

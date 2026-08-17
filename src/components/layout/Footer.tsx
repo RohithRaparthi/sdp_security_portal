@@ -1,7 +1,10 @@
 import React from 'react';
-import { Shield } from 'lucide-react';
+import { Shield, Sparkles, ArrowRight, ShieldCheck, Shirt } from 'lucide-react';
+import { useNavigation } from '../../utils/router';
 
 export const Footer: React.FC = () => {
+  const { navigateTo } = useNavigation();
+
   return (
     <footer className="bg-[#020712] border-t border-[#00D9FF]/10 py-16 relative overflow-hidden">
       {/* Decorative top glow */}
@@ -12,74 +15,153 @@ export const Footer: React.FC = () => {
           
           {/* Company Info */}
           <div className="lg:col-span-4 flex flex-col gap-6">
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-[#8CC63F] to-[#4D7C0F] flex items-center justify-center shadow-[0_0_15px_rgba(140,198,63,0.3)]">
+            <div 
+              onClick={() => navigateTo('home')}
+              className="flex items-center gap-3 cursor-pointer group w-fit"
+            >
+              <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-[#8CC63F] to-[#4D7C0F] flex items-center justify-center shadow-[0_0_15px_rgba(140,198,63,0.3)] group-hover:scale-105 transition-transform">
                 <span className="text-[#020712] font-black text-xl tracking-tighter">S</span>
               </div>
               <div className="flex flex-col">
-                <span className="text-[#F5F7FA] font-bold text-lg leading-tight tracking-wide">SDP</span>
+                <span className="text-[#F5F7FA] font-bold text-lg leading-tight tracking-wide group-hover:text-[#00D9FF] transition-colors">SDP</span>
                 <span className="text-[#A8B4C3] text-[10px] leading-tight font-medium">Secure Data Protection<br/>Innovations Pvt. Ltd.</span>
               </div>
             </div>
             <p className="text-[#A8B4C3] text-sm leading-relaxed max-w-sm">
-              Building secure, intelligent, and scalable AI solutions for modern businesses. We combine artificial intelligence with enterprise-grade cybersecurity.
+              Building secure, intelligent, and scalable AI solutions for modern enterprises. We pioneer next-generation zero-trust AI security, quantum-resistant messaging, and spatial fashion intelligence.
             </p>
-            <div className="flex gap-4 mt-2">
-              <a href="#" aria-label="LinkedIn" className="w-10 h-10 rounded-lg bg-[#071625] border border-[#00D9FF]/10 flex items-center justify-center text-[#A8B4C3] hover:text-[#00D9FF] hover:border-[#00D9FF]/30 hover:shadow-[0_0_10px_rgba(0,217,255,0.15)] transition-all">
-                <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
-              </a>
-              <a href="#" aria-label="Twitter" className="w-10 h-10 rounded-lg bg-[#071625] border border-[#00D9FF]/10 flex items-center justify-center text-[#A8B4C3] hover:text-[#00D9FF] hover:border-[#00D9FF]/30 hover:shadow-[0_0_10px_rgba(0,217,255,0.15)] transition-all">
-                <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round"><path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"></path></svg>
-              </a>
+            <div className="flex items-center gap-2 text-xs font-mono text-[#8CC63F]">
+              <span className="w-2 h-2 rounded-full bg-[#8CC63F] animate-pulse"></span>
+              <span>INDEPENDENT CRYPTOGRAPHIC AUDIT VERIFIED</span>
             </div>
           </div>
 
-          {/* Products & Services */}
+          {/* AI Products Links */}
           <div className="lg:col-span-3">
-            <h4 className="text-[#F5F7FA] font-semibold mb-6">Products & Services</h4>
+            <h4 className="text-[#F5F7FA] font-bold text-sm tracking-wider uppercase mb-5 flex items-center gap-2">
+              <Sparkles size={16} className="text-[#00D9FF]" />
+              AI Products
+            </h4>
             <ul className="flex flex-col gap-3">
-              {['AI Build Security Portal', 'S-Chat AI', 'Outfit AI', 'AI Applications', 'Enterprise Software'].map((item) => (
-                <li key={item}>
-                  <a href="#" className="text-[#A8B4C3] text-sm hover:text-[#00D9FF] transition-colors flex items-center gap-2 group">
-                    <span className="w-1.5 h-1.5 rounded-full bg-[#00D9FF]/30 group-hover:bg-[#00D9FF] transition-colors"></span>
-                    {item}
-                  </a>
-                </li>
-              ))}
+              <li>
+                <button 
+                  onClick={() => navigateTo('ai-build')}
+                  className="text-[#A8B4C3] text-sm hover:text-[#00D9FF] transition-colors flex items-center gap-2 group text-left"
+                >
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#00D9FF] group-hover:scale-125 transition-transform"></span>
+                  <span>AI Build Security Portal</span>
+                </button>
+              </li>
+              <li>
+                <button 
+                  onClick={() => navigateTo('s-chat')}
+                  className="text-[#A8B4C3] text-sm hover:text-[#8CC63F] transition-colors flex items-center gap-2 group text-left"
+                >
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#8CC63F] group-hover:scale-125 transition-transform"></span>
+                  <span>S-Chat AI Messenger</span>
+                </button>
+              </li>
+              <li>
+                <button 
+                  onClick={() => navigateTo('outfit-ai')}
+                  className="text-[#A8B4C3] text-sm hover:text-[#A855F7] transition-colors flex items-center gap-2 group text-left"
+                >
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#A855F7] group-hover:scale-125 transition-transform"></span>
+                  <span>Outfit AI Fashion Studio</span>
+                </button>
+              </li>
+              <li>
+                <button 
+                  onClick={() => navigateTo('home', '#services')}
+                  className="text-[#A8B4C3] text-sm hover:text-[#00D9FF] transition-colors flex items-center gap-2 group text-left"
+                >
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#176BFF] group-hover:scale-125 transition-transform"></span>
+                  <span>Enterprise Engineering Services</span>
+                </button>
+              </li>
             </ul>
           </div>
 
-          {/* Company & Legal */}
+          {/* Architecture & Solutions */}
           <div className="lg:col-span-2">
-            <h4 className="text-[#F5F7FA] font-semibold mb-6">Company</h4>
+            <h4 className="text-[#F5F7FA] font-bold text-sm tracking-wider uppercase mb-5">
+              Ecosystem
+            </h4>
             <ul className="flex flex-col gap-3">
-              {['About Us', 'Careers', 'Privacy Policy', 'Terms of Service', 'Contact'].map((item) => (
-                <li key={item}>
-                  <a href="#" className="text-[#A8B4C3] text-sm hover:text-[#00D9FF] transition-colors flex items-center gap-2 group">
-                    <span className="w-1.5 h-1.5 rounded-full bg-[#00D9FF]/30 group-hover:bg-[#00D9FF] transition-colors"></span>
-                    {item}
-                  </a>
-                </li>
-              ))}
+              <li>
+                <button 
+                  onClick={() => navigateTo('home', '#security')}
+                  className="text-[#A8B4C3] text-sm hover:text-[#00D9FF] transition-colors text-left"
+                >
+                  Zero Trust Architecture
+                </button>
+              </li>
+              <li>
+                <button 
+                  onClick={() => navigateTo('home', '#technology')}
+                  className="text-[#A8B4C3] text-sm hover:text-[#00D9FF] transition-colors text-left"
+                >
+                  Technology Stack
+                </button>
+              </li>
+              <li>
+                <button 
+                  onClick={() => navigateTo('home', '#services')}
+                  className="text-[#A8B4C3] text-sm hover:text-[#00D9FF] transition-colors text-left"
+                >
+                  Engineering Process
+                </button>
+              </li>
+              <li>
+                <button 
+                  onClick={() => navigateTo('home', '#about')}
+                  className="text-[#A8B4C3] text-sm hover:text-[#00D9FF] transition-colors text-left"
+                >
+                  About SDP Innovations
+                </button>
+              </li>
             </ul>
           </div>
 
-          {/* S-Chat Badge & QR Code */}
-          <div className="lg:col-span-3 flex justify-end">
-            <div className="bg-[#05101A] border border-[#8CC63F]/20 rounded-2xl p-6 flex flex-col items-center w-full max-w-[240px] text-center hover:border-[#8CC63F]/40 transition-colors">
-              <Shield className="w-8 h-8 text-[#8CC63F] mb-3" />
-              <h5 className="text-[#F5F7FA] font-bold text-sm mb-1">Get S-Chat App</h5>
-              <p className="text-[#A8B4C3] text-xs mb-4">Secure communication for enterprise</p>
-              
-              <div className="w-32 h-32 bg-white rounded-xl p-2 mb-3">
-                {/* QR Placeholder */}
-                <div className="w-full h-full bg-[#020712] opacity-10 flex items-center justify-center">
-                  <span className="text-black text-[10px] font-bold">QR CODE</span>
-                </div>
+          {/* Quick Launch Cards */}
+          <div className="lg:col-span-3 flex flex-col gap-3 justify-start">
+            <h4 className="text-[#F5F7FA] font-bold text-sm tracking-wider uppercase mb-2">
+              Launch Product Consoles
+            </h4>
+            
+            <button
+              onClick={() => navigateTo('ai-build')}
+              className="p-3 bg-[#05101A] border border-[#00D9FF]/30 hover:border-[#00D9FF] rounded-xl flex items-center justify-between text-left transition-all group shadow-sm hover:shadow-[0_0_15px_rgba(0,217,255,0.15)]"
+            >
+              <div className="flex items-center gap-2.5">
+                <ShieldCheck size={16} className="text-[#00D9FF]" />
+                <span className="text-xs font-bold text-[#F5F7FA]">AI Security Portal</span>
               </div>
-              
-              <span className="text-[#8CC63F] text-xs font-semibold tracking-wider uppercase">Scan to Download</span>
-            </div>
+              <ArrowRight size={14} className="text-[#00D9FF] group-hover:translate-x-1 transition-transform" />
+            </button>
+
+            <button
+              onClick={() => navigateTo('s-chat')}
+              className="p-3 bg-[#05101A] border border-[#8CC63F]/30 hover:border-[#8CC63F] rounded-xl flex items-center justify-between text-left transition-all group shadow-sm hover:shadow-[0_0_15px_rgba(140,198,63,0.15)]"
+            >
+              <div className="flex items-center gap-2.5">
+                <Shield size={16} className="text-[#8CC63F]" />
+                <span className="text-xs font-bold text-[#F5F7FA]">S-Chat AI Messenger</span>
+              </div>
+              <ArrowRight size={14} className="text-[#8CC63F] group-hover:translate-x-1 transition-transform" />
+            </button>
+
+            <button
+              onClick={() => navigateTo('outfit-ai')}
+              className="p-3 bg-[#05101A] border border-[#A855F7]/30 hover:border-[#A855F7] rounded-xl flex items-center justify-between text-left transition-all group shadow-sm hover:shadow-[0_0_15px_rgba(168,85,247,0.15)]"
+            >
+              <div className="flex items-center gap-2.5">
+                <Shirt size={16} className="text-[#A855F7]" />
+                <span className="text-xs font-bold text-[#F5F7FA]">Outfit AI Studio</span>
+              </div>
+              <ArrowRight size={14} className="text-[#A855F7] group-hover:translate-x-1 transition-transform" />
+            </button>
+
           </div>
 
         </div>
@@ -91,7 +173,7 @@ export const Footer: React.FC = () => {
           </p>
           <div className="flex items-center gap-2 text-[#667789] text-xs font-mono">
             <span className="w-2 h-2 rounded-full bg-[#8CC63F] shadow-[0_0_8px_#8CC63F] animate-pulse"></span>
-            SYSTEM SECURE
+            SYSTEM OPERATIONAL &middot; ZERO TRUST ACTIVE
           </div>
         </div>
       </div>

@@ -1,118 +1,139 @@
-import React from 'react';
-import { Sparkles, Shirt, Scissors, Maximize, Palette, TrendingUp } from 'lucide-react';
+import React, { useState } from 'react';
+import { Sparkles, ArrowRight, CheckCircle2 } from 'lucide-react';
 import { GlowButton } from '../common/GlowButton';
-import { ScrollReveal, StaggerContainer, StaggerItem } from '../common/ScrollReveal';
+import { ScrollReveal } from '../common/ScrollReveal';
 import { motion } from 'framer-motion';
+import { useNavigation } from '../../utils/router';
 
 export const OutfitAISection: React.FC = () => {
-  const features = [
-    { icon: <Sparkles className="w-4 h-4 text-[#A855F7]" />, label: 'AI Outfit Recommendation' },
-    { icon: <Shirt className="w-4 h-4 text-[#A855F7]" />, label: 'Virtual Try-On' },
-    { icon: <Scissors className="w-4 h-4 text-[#A855F7]" />, label: 'Personalized Styling' },
-    { icon: <Maximize className="w-4 h-4 text-[#A855F7]" />, label: 'Wardrobe Management' },
-    { icon: <Palette className="w-4 h-4 text-[#A855F7]" />, label: 'AI Color Matching' },
-    { icon: <TrendingUp className="w-4 h-4 text-[#A855F7]" />, label: 'Fashion Trend Analysis' },
-  ];
+  const { navigateTo } = useNavigation();
+  const [selectedLook, setSelectedLook] = useState('executive');
+
+  const looks: Record<string, { title: string; fabric: string; fit: string; drape: string }> = {
+    executive: { title: 'Italian Midnight Wool Blazer', fabric: 'Super 150s Virgin Wool', fit: '99.4%', drape: '<580ms' },
+    gala: { title: 'Deep Amethyst Velvet Tuxedo', fabric: 'Mulberry Silk Velvet', fit: '98.9%', drape: '<620ms' },
+    techwear: { title: '3-Layer Ergonomic Modular Shell', fabric: 'Matte Cordura GORE-TEX', fit: '97.8%', drape: '<510ms' },
+    riviera: { title: 'Breezy Camp-Collar Linen Shirt', fabric: 'Italian Raw Flax Linen', fit: '99.1%', drape: '<490ms' },
+  };
+
+  const active = looks[selectedLook];
 
   return (
-    <section className="py-24 relative bg-[#020712] overflow-hidden" id="outfit-ai">
-      {/* Background glow */}
-      <div className="absolute left-0 top-1/2 -translate-y-1/2 w-[50%] h-[80%] bg-[#A855F7]/5 rounded-full blur-[120px] pointer-events-none"></div>
+    <section className="py-24 relative bg-[#020712] overflow-hidden border-t border-[#A855F7]/10" id="outfit-ai">
+      {/* Dynamic Amethyst Atmosphere */}
+      <div className="absolute left-0 top-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-[#A855F7]/10 rounded-full blur-[150px] pointer-events-none"></div>
 
-      <div className="max-w-[1320px] mx-auto px-6 relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-8 items-center">
+      <div className="max-w-[1400px] mx-auto px-6 sm:px-8 relative z-10">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
           
-          {/* Left Mobile Phone Mockup */}
-          <ScrollReveal direction="right" delay={0.2} className="flex justify-center items-center order-1 relative">
+          {/* Left 65%: Massive Interactive Visual Fashion Studio Preview */}
+          <ScrollReveal direction="right" delay={0.2} className="lg:col-span-7 flex justify-center items-center order-2 lg:order-1">
             <motion.div
-              animate={{ y: [0, -10, 0] }}
-              transition={{ duration: 7, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
-              className="relative"
+              whileHover={{ scale: 1.02 }}
+              onClick={() => navigateTo('outfit-ai')}
+              className="w-full bg-[#070D1E] border-2 border-[#A855F7]/40 hover:border-[#A855F7] rounded-3xl p-6 sm:p-8 shadow-[0_0_50px_rgba(168,85,247,0.15)] cursor-pointer group relative overflow-hidden flex flex-col gap-6"
             >
-              <div className="absolute inset-0 bg-gradient-to-tr from-[#A855F7]/10 to-[#00D9FF]/10 rounded-full blur-[80px]"></div>
-              
-              <div className="w-[300px] h-[600px] bg-[#020712] rounded-[40px] border-8 border-[#0F1E2E] shadow-[0_0_50px_rgba(168,85,247,0.15)] relative overflow-hidden flex flex-col z-10">
-                {/* Phone Notch */}
-                <div className="absolute top-0 inset-x-0 h-6 flex justify-center z-20">
-                  <div className="w-32 h-6 bg-[#0F1E2E] rounded-b-2xl"></div>
+              {/* Top Bar */}
+              <div className="flex items-center justify-between pb-4 border-b border-[#1A2E44] text-xs font-mono">
+                <div className="flex items-center gap-2 text-[#A855F7]">
+                  <Sparkles size={16} />
+                  <span className="font-bold">OUTFIT AI &bull; 3D SPATIAL DRESSING ROOM</span>
                 </div>
+                <span className="text-[10px] text-[#8CC63F] bg-[#020712] px-2.5 py-1 rounded border border-[#1A2E44]">
+                  85+ MESH POINTS
+                </span>
+              </div>
 
-                {/* App Header */}
-                <div className="pt-10 pb-4 px-5 bg-[#05101A] border-b border-[#1A2E44] flex items-center justify-between relative z-10">
-                  <h4 className="text-[#F5F7FA] font-bold text-lg flex items-center gap-2">
-                    <Sparkles className="w-5 h-5 text-[#A855F7]" />
-                    Outfit AI
-                  </h4>
-                  <div className="w-8 h-8 rounded-full bg-[#1A2E44] flex items-center justify-center">
-                    <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" strokeWidth="2" fill="none" className="text-[#F5F7FA]"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
-                  </div>
+              {/* Look Preview Stage */}
+              <div className="p-5 bg-[#020712] rounded-2xl border border-[#A855F7]/30 flex flex-col gap-3">
+                <div className="flex items-center justify-between text-xs font-mono">
+                  <span className="text-[#A855F7] uppercase tracking-wider font-bold">Selected Neural Silhouette</span>
+                  <span className="text-[#8CC63F]">Fit: {active.fit}</span>
                 </div>
+                <div className="text-base sm:text-lg font-bold text-[#F5F7FA] font-mono">
+                  {active.title}
+                </div>
+                <div className="flex justify-between text-[11px] font-mono text-[#A8B4C3] pt-2 border-t border-[#1A2E44]">
+                  <span>Fabric: {active.fabric}</span>
+                  <span className="text-[#00D9FF]">Drape: {active.drape}</span>
+                </div>
+              </div>
 
-                {/* App Body */}
-                <div className="flex-1 bg-[#020712] p-4 flex flex-col gap-4 overflow-y-auto relative z-10 no-scrollbar">
-                  
-                  {/* AI Recommendation Banner */}
-                  <motion.div 
-                    whileHover={{ scale: 1.02 }}
-                    className="bg-gradient-to-r from-[#A855F7]/20 to-[#00D9FF]/20 rounded-xl p-4 border border-[#A855F7]/30 transition-transform cursor-pointer"
+              {/* Interactive Switchers */}
+              <div className="grid grid-cols-4 gap-2 text-[10px] font-mono font-bold">
+                {Object.keys(looks).map((k) => (
+                  <button
+                    key={k}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setSelectedLook(k);
+                    }}
+                    className={`py-2 rounded-xl border uppercase transition-all cursor-pointer ${
+                      selectedLook === k
+                        ? 'bg-[#A855F7] text-white border-[#A855F7]'
+                        : 'bg-[#05101A] text-[#A8B4C3] border-[#1A2E44] hover:text-white'
+                    }`}
                   >
-                    <h5 className="text-[#F5F7FA] font-bold text-sm mb-1">Today's Pick for You</h5>
-                    <p className="text-[#A8B4C3] text-xs mb-3">Based on weather & your style</p>
-                    <div className="w-full h-32 bg-[#05101A] rounded-lg border border-[#1A2E44] flex items-center justify-center overflow-hidden relative group">
-                      <div className="absolute inset-0 bg-[#A855F7]/10 flex flex-col items-center justify-center">
-                        <Shirt className="w-10 h-10 text-[#A855F7]/80 mb-2 animate-bounce" />
-                        <span className="text-[#A8B4C3] text-xs font-semibold">AI Generated Look</span>
-                      </div>
-                    </div>
-                  </motion.div>
-                </div>
+                    {k}
+                  </button>
+                ))}
+              </div>
+
+              {/* Bottom Interactive Prompt */}
+              <div className="p-3.5 bg-[#05101A] rounded-2xl border border-[#1A2E44] flex items-center justify-between text-xs font-mono text-[#A855F7]">
+                <span>Click to launch full AI styling studio & 3D virtual try-on &rarr;</span>
+                <span className="font-bold">ENTER STUDIO</span>
               </div>
             </motion.div>
           </ScrollReveal>
 
-          {/* Right Content */}
-          <div className="flex flex-col items-start order-2">
+          {/* Right 35%: Concise Story & Specs */}
+          <div className="lg:col-span-5 flex flex-col items-start text-left order-1 lg:order-2">
             <ScrollReveal direction="left" delay={0.1}>
-              <div className="inline-flex items-center gap-2 px-3 py-1 bg-[#A855F7]/10 border border-[#A855F7]/30 rounded-full mb-6">
+              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 bg-[#A855F7]/10 border border-[#A855F7]/30 rounded-full mb-6">
                 <span className="w-2 h-2 rounded-full bg-[#A855F7] animate-pulse"></span>
-                <span className="text-xs font-bold tracking-widest text-[#A855F7] uppercase">
-                  Fashion AI Engine
+                <span className="text-xs font-mono font-bold tracking-widest text-[#A855F7] uppercase">
+                  Spatial Generative Fashion Intelligence
                 </span>
               </div>
             </ScrollReveal>
 
             <ScrollReveal direction="up" delay={0.2}>
-              <div className="flex items-center gap-4 mb-4">
-                <div className="w-12 h-12 bg-[#071625] border border-[#A855F7]/20 rounded-xl flex items-center justify-center">
-                  <Sparkles className="w-6 h-6 text-[#A855F7]" />
-                </div>
-                <h2 className="text-4xl md:text-5xl font-extrabold text-[#F5F7FA]">Outfit AI</h2>
-              </div>
+              <h2 className="text-4xl sm:text-5xl lg:text-6xl font-black text-[#F5F7FA] tracking-tight mb-4">
+                OUTFIT AI
+              </h2>
             </ScrollReveal>
             
             <ScrollReveal direction="up" delay={0.3}>
-              <p className="text-lg text-[#A8B4C3] leading-relaxed mb-8 max-w-xl">
-                An intelligent fashion assistant that analyzes personal style, occasion, weather, and current trends to curate tailored outfit recommendations and virtual try-ons.
+              <p className="text-base sm:text-lg text-[#A8B4C3] leading-relaxed mb-6 max-w-lg">
+                Generative fashion diffusion analyzing 85+ dimensional body geometry points and spectral undertones under 600ms.
               </p>
             </ScrollReveal>
 
-            <StaggerContainer staggerDelay={0.08} className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-10 w-full max-w-xl">
-              {features.map((feature, idx) => (
-                <StaggerItem key={idx}>
-                  <motion.div 
-                    whileHover={{ scale: 1.03, borderColor: "rgba(168,85,247,0.4)" }}
-                    className="flex items-center gap-3 p-3 bg-[#05101A] border border-[#A855F7]/10 rounded-lg transition-all cursor-default"
-                  >
-                    {feature.icon}
-                    <span className="text-sm font-medium text-[#F5F7FA]">{feature.label}</span>
-                  </motion.div>
-                </StaggerItem>
-              ))}
-            </StaggerContainer>
+            <div className="space-y-2.5 mb-8 w-full max-w-lg">
+              <div className="flex items-center gap-2.5 text-xs text-[#F5F7FA]">
+                <CheckCircle2 size={16} className="text-[#A855F7] shrink-0" />
+                <span>Millimeter-Precision 3D Body Mesh Extraction</span>
+              </div>
+              <div className="flex items-center gap-2.5 text-xs text-[#F5F7FA]">
+                <CheckCircle2 size={16} className="text-[#A855F7] shrink-0" />
+                <span>Sub-600ms Neural Virtual Fabric Drape Engine</span>
+              </div>
+              <div className="flex items-center gap-2.5 text-xs text-[#F5F7FA]">
+                <CheckCircle2 size={16} className="text-[#A855F7] shrink-0" />
+                <span>Automated Color Harmony & Undertone Calibration</span>
+              </div>
+            </div>
 
             <ScrollReveal direction="up" delay={0.5}>
-              <GlowButton variant="secondary" className="px-8 py-3 group hover:border-[#A855F7]/50">
-                <span className="group-hover:text-[#A855F7] transition-colors">Explore Outfit AI</span>
+              <GlowButton 
+                variant="purple" 
+                onClick={() => navigateTo('outfit-ai')}
+                className="px-8 py-4 flex items-center gap-2 text-xs font-mono font-bold uppercase shadow-[0_0_25px_rgba(168,85,247,0.3)] cursor-pointer"
+              >
+                <Sparkles size={15} />
+                <span>Launch AI Styling Studio</span>
+                <ArrowRight size={15} />
               </GlowButton>
             </ScrollReveal>
           </div>
