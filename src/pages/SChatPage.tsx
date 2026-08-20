@@ -1,152 +1,112 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { 
-  EyeOff, 
-  ArrowLeft, 
-  Send, 
-  Server, 
-  Smartphone, 
-  Layers
-} from 'lucide-react';
+import { ArrowLeft, Server, Smartphone, Layers } from 'lucide-react';
 import { useNavigation } from '../utils/router';
 import { GlowButton } from '../components/common/GlowButton';
 import { StickyProductNav } from '../components/common/StickyProductNav';
+import { SChatLogo } from '../components/products/schat/SChatLogo';
+
+// Phone Components
+import { SChatPhone } from '../components/products/schat/SChatPhone';
+import { SecureChatScreen } from '../components/products/schat/screens/SecureChatScreen';
+import { SecureCallScreen } from '../components/products/schat/screens/SecureCallScreen';
+import { SecureVideoCallScreen } from '../components/products/schat/screens/SecureVideoCallScreen';
+import { SecureFileScreen } from '../components/products/schat/screens/SecureFileScreen';
+import { PrivacyProtectionScreen } from '../components/products/schat/screens/PrivacyProtectionScreen';
+import { SmartMessagingScreen } from '../components/products/schat/screens/SmartMessagingScreen';
+import { PersonalizationScreen } from '../components/products/schat/screens/PersonalizationScreen';
+import { DeviceSecurityScreen } from '../components/products/schat/screens/DeviceSecurityScreen';
+import { SecureLocationScreen } from '../components/products/schat/screens/SecureLocationScreen';
+import { ChatTransferScreen } from '../components/products/schat/screens/ChatTransferScreen';
+import { EmergencyHelpScreen } from '../components/products/schat/screens/EmergencyHelpScreen';
 
 export const SChatPage: React.FC = () => {
   const { navigateTo } = useNavigation();
-
-  // Multi-stage message dispatch animation state
-  type DispatchStage = 'idle' | 'sending' | 'encrypting' | 'kyber' | 'threat_scan' | 'delivered';
-  const [dispatchStage, setDispatchStage] = useState<DispatchStage>('idle');
-
-  // Active Story Step in Pinned Layout (0: Handshake, 1: Kyber, 2: Threat, 3: Zero Trace, 4: Screen Shield)
   const [activeStoryStep, setActiveStoryStep] = useState(0);
-
-  // Interactive Live Chat Simulator State
-  const [messages, setMessages] = useState<Array<{ id: string; sender: 'user' | 'ai'; text: string; encryptedHex: string; time: string; protocol: string }>>([
-    {
-      id: '1',
-      sender: 'user',
-      text: 'Initiate quantum-resistant handshake for Project Horizon.',
-      encryptedHex: 'e4a899c7f21b0042d38827ab10f99a...9f1e8a',
-      time: '10:42:01',
-      protocol: 'Kyber-1024 PQ'
-    },
-    {
-      id: '2',
-      sender: 'ai',
-      text: 'Handshake verified. 256-bit Post-Quantum Kyber-1024 tunnel established. Zero knowledge proof active.',
-      encryptedHex: '7b20227365637572697479223a2022...34227d',
-      time: '10:42:04',
-      protocol: 'Kyber-1024 PQ'
-    }
-  ]);
-  const [inputText, setInputText] = useState('');
-  const [encryptionMode, setEncryptionMode] = useState<'quantum' | 'military'>('quantum');
-  const [screenShieldActive, setScreenShieldActive] = useState(false);
-  const showEncryptedStream = true;
-
-  // Live Cipher Stream Generator
-  const [liveCipherStream, setLiveCipherStream] = useState('A4 92 7F C3 8A 19 E0 4D B2 F7 C0 91');
-  useEffect(() => {
-    const interval = setInterval(() => {
-      const hex = Array.from({ length: 12 }, () => Math.floor(Math.random() * 256).toString(16).toUpperCase().padStart(2, '0')).join(' ');
-      setLiveCipherStream(hex);
-    }, 2200);
-    return () => clearInterval(interval);
-  }, []);
 
   const storySteps = [
     {
-      step: '01',
-      title: 'Post-Quantum Handshake',
-      subtitle: 'Kyber-1024 Lattice Key Encapsulation',
-      desc: 'Before any message is sent, S-Chat executes a Post-Quantum Kyber-1024 mathematical lattice handshake. Future quantum computers cannot retroactively decrypt past conversations.',
-      badge: 'NIST PQ STANDARD',
-      color: '#8CC63F'
+      id: 'secure-chat',
+      title: 'End-to-End Encrypted Messaging',
+      subtitle: 'NIST Post-Quantum Standard',
+      desc: 'All messages are secured with military-grade encryption. Not even S-Chat can read your data. Every message uses a unique ephemeral key.',
+      component: <SecureChatScreen />
     },
     {
-      step: '02',
-      title: 'Double-Ratchet Encryption',
-      subtitle: 'Forward Secrecy per Packet',
-      desc: 'Every single message generates a unique, single-use ephemeral encryption key that is discarded immediately after decryption. Compromising one key reveals nothing about prior or subsequent messages.',
-      badge: 'ZERO RE-USE',
-      color: '#00D9FF'
+      id: 'secure-call',
+      title: 'Encrypted Voice Calls',
+      subtitle: 'Zero-Latency Secure VoIP',
+      desc: 'Crystal clear voice calls protected by end-to-end encryption, ensuring your conversations remain entirely private.',
+      component: <SecureCallScreen />
     },
     {
-      step: '03',
-      title: 'AI Threat Sentinel',
-      subtitle: 'On-Device Semantic Sandbox',
-      desc: 'An embedded on-device neural network inspects incoming URLs, attachments, and payloads inside an isolated hardware sandbox before they can execute on your operating system.',
-      badge: 'SUB-1MS SCAN',
-      color: '#A855F7'
+      id: 'secure-video',
+      title: 'Encrypted Video Calls',
+      subtitle: 'High-Fidelity Secure Video',
+      desc: 'Face-to-face communication over secure tunnels. Video data is encrypted on your device before it ever hits the network.',
+      component: <SecureVideoCallScreen />
     },
     {
-      step: '04',
-      title: 'Zero-Trace Ephemeral Burn',
-      subtitle: 'Cryptographic RAM Overwrite',
-      desc: 'Set custom expiration timers from 5 seconds to 24 hours. When a message expires, the memory sector is cryptographically overwritten with random noise and zeroed out.',
-      badge: 'FORENSIC CLEAN',
-      color: '#8CC63F'
+      id: 'secure-file',
+      title: 'Complete File Control',
+      subtitle: 'One-Time View & Shared Logs',
+      desc: 'Share sensitive documents with confidence. Restrict access, set view-once policies, and audit detailed access logs.',
+      component: <SecureFileScreen />
     },
     {
-      step: '05',
-      title: 'Hardware Screen Shield',
-      subtitle: 'Anti-Capture & OS Hook',
-      desc: 'Operating system hooks detect screen recording software, screenshot triggers, or display mirroring attempts, instantly replacing the chat viewport with a black security barrier.',
-      badge: 'ZERO LEAKS',
-      color: '#00D9FF'
+      id: 'privacy',
+      title: 'Privacy Protection',
+      subtitle: 'Hardware Screen Shield',
+      desc: 'Prevent unauthorized captures. OS-level hooks detect screen recording and screenshot attempts, blacking out the secure viewport instantly.',
+      component: <PrivacyProtectionScreen />
+    },
+    {
+      id: 'smart-msg',
+      title: 'Smart Messaging',
+      subtitle: 'Scheduled & Expiring',
+      desc: 'Schedule messages for later, set automated follow-up reminders, or configure self-destruct timers for maximum operational security.',
+      component: <SmartMessagingScreen />
+    },
+    {
+      id: 'personalization',
+      title: 'Discreet Personalization',
+      subtitle: 'Themes, Colors & Icons',
+      desc: 'Customize the appearance of your secure enclave. Use stealth app icons to disguise the app on your home screen.',
+      component: <PersonalizationScreen />
+    },
+    {
+      id: 'device-sec',
+      title: 'Device Security Check',
+      subtitle: 'Continuous Threat Scanning',
+      desc: 'Active monitoring of your device integrity. Detects suspicious activity, third-party keyboards, and OS vulnerabilities in real-time.',
+      component: <DeviceSecurityScreen />
+    },
+    {
+      id: 'location',
+      title: 'Secure Location Sharing',
+      subtitle: 'Encrypted Live Tracking',
+      desc: 'Share your live location with trusted contacts over an encrypted channel. Automatically revokes access when the timer expires.',
+      component: <SecureLocationScreen />
+    },
+    {
+      id: 'transfer',
+      title: 'Encrypted Chat Transfer',
+      subtitle: 'Local P2P Migration',
+      desc: 'Migrate your chat history to a new device over an encrypted local Wi-Fi connection. Zero cloud backups required.',
+      component: <ChatTransferScreen />
+    },
+    {
+      id: 'emergency',
+      title: 'Emergency SOS Protocol',
+      subtitle: 'Instant Trusted Alert',
+      desc: 'In critical situations, trigger an SOS alert to instantly notify trusted contacts with your live location and status.',
+      component: <EmergencyHelpScreen />
     }
   ];
 
-  const handleSendMessage = (e?: React.FormEvent) => {
-    if (e) e.preventDefault();
-    if (!inputText.trim()) return;
-
-    const messageText = inputText;
-    setInputText('');
-
-    setDispatchStage('sending');
-    setTimeout(() => setDispatchStage('encrypting'), 350);
-    setTimeout(() => setDispatchStage(encryptionMode === 'quantum' ? 'kyber' : 'encrypting'), 700);
-    setTimeout(() => setDispatchStage('threat_scan'), 1050);
-
-    setTimeout(() => {
-      setDispatchStage('delivered');
-      const fakeHex = Array.from({ length: 16 }, () => Math.floor(Math.random() * 256).toString(16).padStart(2, '0')).join('');
-      const timeStr = new Date().toTimeString().split(' ')[0];
-
-      const newMsg = {
-        id: Date.now().toString(),
-        sender: 'user' as const,
-        text: messageText,
-        encryptedHex: fakeHex + '...secure',
-        time: timeStr,
-        protocol: encryptionMode === 'quantum' ? 'Kyber-1024 PQ' : 'Signal AES-GCM'
-      };
-
-      setMessages(prev => [...prev, newMsg]);
-
-      setTimeout(() => {
-        const replyHex = Array.from({ length: 16 }, () => Math.floor(Math.random() * 256).toString(16).padStart(2, '0')).join('');
-        const replyMsg = {
-          id: (Date.now() + 1).toString(),
-          sender: 'ai' as const,
-          text: `Encrypted payload confirmed via ${encryptionMode === 'quantum' ? 'Post-Quantum Kyber-1024' : 'Signal Protocol'}. Threat verification: 0 threats. Integrity proof verified.`,
-          encryptedHex: replyHex + '...verified',
-          time: new Date().toTimeString().split(' ')[0],
-          protocol: encryptionMode === 'quantum' ? 'Kyber-1024 PQ' : 'Signal AES-GCM'
-        };
-        setMessages(prev => [...prev, replyMsg]);
-        setDispatchStage('idle');
-      }, 800);
-
-    }, 1400);
-  };
-
   const navSections = [
     { id: 'schat-hero', label: 'Overview' },
-    { id: 'schat-story', label: 'Security Pipeline' },
+    { id: 'schat-story', label: 'Features' },
     { id: 'schat-deployment', label: 'Deployment' },
   ];
 
@@ -155,11 +115,11 @@ export const SChatPage: React.FC = () => {
       
       {/* Sticky Sub-Navigation */}
       <StickyProductNav 
-        productName="S-CHAT AI"
-        productBadge="QUANTUM-SAFE ENCLAVE"
+        productName="S-CHAT"
+        productBadge="SECURE MESSAGING"
         badgeColor="green"
         sections={navSections}
-        ctaLabel="Test S-Chat Demo"
+        ctaLabel="Explore Features"
         onCtaClick={() => {
           const el = document.getElementById('schat-story');
           el?.scrollIntoView({ behavior: 'smooth' });
@@ -167,7 +127,7 @@ export const SChatPage: React.FC = () => {
       />
 
       {/* Top Breadcrumb Navigation */}
-      <div className="max-w-[1400px] mx-auto px-6 sm:px-8 mb-6">
+      <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 mb-6">
         <button 
           onClick={() => navigateTo('home')}
           className="inline-flex items-center gap-2 text-xs font-mono text-[#A8B4C3] hover:text-[#8CC63F] transition-colors py-2 px-3.5 rounded-xl bg-[#071625]/80 border border-[#8CC63F]/20 hover:border-[#8CC63F]/50 group cursor-pointer"
@@ -177,210 +137,83 @@ export const SChatPage: React.FC = () => {
         </button>
       </div>
 
-      {/* Hero Section: Minimal Text, Maximum Punch */}
-      <div id="schat-hero" className="max-w-[1400px] mx-auto px-6 sm:px-8 mb-16">
+      {/* Hero Section */}
+      <div id="schat-hero" className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 mb-16">
         <div className="text-left max-w-4xl">
-          <div className="inline-flex items-center gap-2.5 px-4 py-1.5 bg-[#8CC63F]/10 border border-[#8CC63F]/30 rounded-full mb-6 shadow-[0_0_20px_rgba(140,198,63,0.2)]">
-            <span className="w-2 h-2 rounded-full bg-[#8CC63F] animate-pulse"></span>
-            <span className="text-xs font-mono font-bold tracking-widest text-[#8CC63F] uppercase">
-              Quantum-Safe Communication Platform
-            </span>
-          </div>
+          <SChatLogo className="mb-10" />
 
-          <h1 className="text-4xl sm:text-6xl lg:text-7xl font-black text-[#F5F7FA] tracking-tight leading-[1.02] mb-6">
-            PRIVATE COMMUNICATION <br />
+          <h1 className="text-3xl sm:text-5xl lg:text-7xl font-black text-[#F5F7FA] tracking-tight leading-[1.02] mb-6">
+            SECURE COMMUNICATION <br />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#8CC63F] via-[#A3D63C] to-[#00D9FF]">
-              BUILT FOR THE QUANTUM ERA.
+              WITHOUT COMPROMISE
             </span>
           </h1>
 
           <p className="text-base sm:text-lg text-[#A8B4C3] max-w-2xl leading-relaxed">
-            Signal double-ratchet architecture fortified with NIST-standard Post-Quantum Kyber-1024 and hardware anti-screen capture.
+            The premium secure messaging product designed for absolute privacy. E2E encrypted chats, calls, and files backed by uncompromising device security.
           </p>
         </div>
       </div>
 
-      {/* Pinned Split-Screen Storytelling Section (Left: Scrolling Story / Right: Pinned Chat UI) */}
-      <section id="schat-story" className="max-w-[1400px] mx-auto px-6 sm:px-8 mb-24">
+      {/* Pinned Split-Screen Storytelling Section */}
+      <section id="schat-story" className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 mb-24">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
           
-          {/* Left Column: Scrolling 5-Step Story Cards */}
-          <div className="lg:col-span-5 space-y-6">
-            <div className="pb-4 border-b border-[#1A2E44]">
+          {/* Left Column: Feature List */}
+          <div className="lg:col-span-6 space-y-4">
+            <div className="pb-4 border-b border-[#1A2E44] sticky top-28 bg-[#020712] z-10 pt-4">
               <span className="text-xs font-mono font-bold text-[#8CC63F] uppercase tracking-wider block">
-                Cryptographic Pipeline Journey
+                Product Capabilities
               </span>
               <p className="text-xs text-[#A8B4C3] mt-1">
-                Select any step to preview how S-Chat secures every packet in real time.
+                Select a feature to see it in action on the right.
               </p>
             </div>
 
-            {storySteps.map((s, idx) => {
-              const isCurrent = activeStoryStep === idx;
+            <div className="flex flex-col gap-4 pb-20">
+              {storySteps.map((s, idx) => {
+                const isCurrent = activeStoryStep === idx;
 
-              return (
-                <motion.div
-                  key={s.step}
-                  onClick={() => {
-                    setActiveStoryStep(idx);
-                    if (idx === 4) setScreenShieldActive(true);
-                    else setScreenShieldActive(false);
-                  }}
-                  whileHover={{ x: 4 }}
-                  className={`p-6 rounded-3xl border transition-all duration-300 cursor-pointer ${
-                    isCurrent
-                      ? 'bg-[#071625] border-[#8CC63F] shadow-[0_0_30px_rgba(140,198,63,0.25)] scale-[1.02]'
-                      : 'bg-[#05101A] border-[#1A2E44] hover:border-[#8CC63F]/40'
-                  }`}
-                >
-                  <div className="flex items-center justify-between mb-3">
-                    <span className="text-xs font-mono font-black text-[#8CC63F]">STEP {s.step}</span>
-                    <span className="text-[10px] font-mono font-bold px-2.5 py-0.5 rounded-full bg-white/5 border border-white/10" style={{ color: s.color }}>
-                      {s.badge}
-                    </span>
-                  </div>
-
-                  <h3 className="text-xl font-bold text-[#F5F7FA] mb-1">{s.title}</h3>
-                  <h4 className="text-xs font-mono font-bold text-[#A8B4C3] mb-3" style={{ color: s.color }}>
-                    {s.subtitle}
-                  </h4>
-                  <p className="text-xs sm:text-sm text-[#A8B4C3] leading-relaxed">
-                    {s.desc}
-                  </p>
-                </motion.div>
-              );
-            })}
+                return (
+                  <motion.div
+                    key={s.id}
+                    onClick={() => setActiveStoryStep(idx)}
+                    whileHover={{ x: 4 }}
+                    className={`p-5 rounded-3xl border transition-all duration-300 cursor-pointer ${
+                      isCurrent
+                        ? 'bg-[#071625] border-[#8CC63F] shadow-[0_0_30px_rgba(140,198,63,0.15)] scale-[1.02]'
+                        : 'bg-[#05101A] border-[#1A2E44] hover:border-[#8CC63F]/40'
+                    }`}
+                  >
+                    <h3 className={`text-lg font-bold mb-1 ${isCurrent ? 'text-[#8CC63F]' : 'text-[#F5F7FA]'}`}>
+                      {s.title}
+                    </h3>
+                    <h4 className="text-[10px] font-mono font-bold text-[#A8B4C3] mb-2 uppercase tracking-wider">
+                      {s.subtitle}
+                    </h4>
+                    <p className="text-sm text-[#A8B4C3] leading-relaxed">
+                      {s.desc}
+                    </p>
+                  </motion.div>
+                );
+              })}
+            </div>
           </div>
 
-          {/* Right Column: Pinned Interactive Live Chat Engine */}
-          <div className="lg:col-span-7 sticky top-28 space-y-4">
-            
-            {/* Chat Sandbox Card */}
-            <div className="bg-[#020712] border-2 border-[#8CC63F]/50 rounded-3xl overflow-hidden shadow-[0_0_60px_rgba(140,198,63,0.15)] relative flex flex-col min-h-[580px]">
-              
-              {/* Screen Shield Blackout Simulation Overlay */}
-              {screenShieldActive && (
-                <div className="absolute inset-0 bg-[#000000]/98 z-30 flex flex-col items-center justify-center p-6 text-center backdrop-blur-xl">
-                  <EyeOff className="w-16 h-16 text-[#8CC63F] mb-4 animate-bounce" />
-                  <h4 className="text-2xl font-bold text-[#F5F7FA] mb-2 font-mono">Hardware Screen Shield Active</h4>
-                  <p className="text-xs text-[#A8B4C3] max-w-md mb-6">
-                    OS-level capture hook has blacked out this buffer. Screen recording, screenshots, and remote mirroring are blocked.
-                  </p>
-                  <button 
-                    onClick={() => setScreenShieldActive(false)}
-                    className="px-6 py-2.5 bg-[#8CC63F] text-black text-xs font-bold font-mono rounded-xl hover:bg-[#A3D63C] cursor-pointer transition-colors"
-                  >
-                    Resume View
-                  </button>
-                </div>
-              )}
-
-              {/* Chat App Header */}
-              <div className="p-4 bg-[#071625] border-b border-[#1A2E44] flex items-center justify-between">
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-2xl bg-[#8CC63F]/20 border border-[#8CC63F]/40 flex items-center justify-center font-bold text-[#8CC63F] font-mono">
-                    S
-                  </div>
-                  <div>
-                    <h4 className="text-sm font-bold text-[#F5F7FA] flex items-center gap-2">
-                      S-CHAT AI &bull; Secure Channel #001
-                      <span className="text-[10px] px-2 py-0.5 rounded bg-[#8CC63F]/20 text-[#8CC63F] font-mono">● LIVE</span>
-                    </h4>
-                    <p className="text-[11px] text-[#A8B4C3] font-mono">
-                      Protocol: {encryptionMode === 'quantum' ? 'Kyber-1024 Post-Quantum' : 'Signal Double-Ratchet'}
-                    </p>
-                  </div>
-                </div>
-                
-                <div className="flex items-center gap-2">
-                  <button
-                    onClick={() => setEncryptionMode(encryptionMode === 'quantum' ? 'military' : 'quantum')}
-                    className="text-[10px] font-mono font-bold px-2.5 py-1 rounded-lg bg-[#020712] border border-[#8CC63F]/30 text-[#8CC63F] hover:bg-[#8CC63F]/10 cursor-pointer"
-                  >
-                    Switch: {encryptionMode === 'quantum' ? 'PQ Kyber' : 'Signal AES'}
-                  </button>
-                </div>
-              </div>
-
-              {/* Live Multi-Stage Dispatch Animation Bar */}
-              {dispatchStage !== 'idle' && (
-                <div className="bg-[#05101A] border-b border-[#8CC63F]/40 p-3 px-4 flex items-center justify-between text-xs font-mono text-[#8CC63F] animate-in fade-in">
-                  <div className="flex items-center gap-2">
-                    <span className="w-2 h-2 rounded-full bg-[#8CC63F] animate-ping"></span>
-                    <span>DISPATCH:</span>
-                  </div>
-                  <div className="font-bold flex items-center gap-2">
-                    {dispatchStage === 'sending' && <span className="text-[#00D9FF]">1. SENDING...</span>}
-                    {dispatchStage === 'encrypting' && <span className="text-[#8CC63F]">2. ENCRYPTING...</span>}
-                    {dispatchStage === 'kyber' && <span className="text-[#8CC63F]">3. KYBER-1024 PQ RATCHET...</span>}
-                    {dispatchStage === 'threat_scan' && <span className="text-[#A855F7]">4. AI THREAT SCAN (0 THREATS)...</span>}
-                    {dispatchStage === 'delivered' && <span className="text-[#8CC63F]">5. SECURE DELIVERY &check;</span>}
-                  </div>
-                </div>
-              )}
-
-              {/* Chat Message Scroll Feed */}
-              <div className="p-6 flex-1 overflow-y-auto flex flex-col gap-4 bg-[#010308] min-h-[300px] max-h-[360px]">
-                <div className="p-2.5 bg-[#8CC63F]/10 border border-[#8CC63F]/20 rounded-xl text-center text-xs text-[#8CC63F] font-mono">
-                  🔒 Zero-Knowledge Channel Established. Handshake verified.
-                </div>
-
-                {messages.map((msg) => (
-                  <div 
-                    key={msg.id}
-                    className={`flex flex-col ${msg.sender === 'user' ? 'items-end' : 'items-start'}`}
-                  >
-                    <div className={`p-4 rounded-2xl max-w-[85%] text-sm ${
-                      msg.sender === 'user'
-                        ? 'bg-[#8CC63F]/20 border border-[#8CC63F]/40 text-[#F5F7FA] rounded-tr-none'
-                        : 'bg-[#071625] border border-[#1A2E44] text-[#F5F7FA] rounded-tl-none'
-                    }`}>
-                      <p className="leading-relaxed">{msg.text}</p>
-                      {showEncryptedStream && (
-                        <div className="mt-2 pt-2 border-t border-white/10 font-mono text-[10px] text-[#8CC63F] break-all">
-                          [{msg.protocol}] CIPHER: 0x{msg.encryptedHex}
-                        </div>
-                      )}
-                    </div>
-                    <span className="text-[10px] text-[#667789] mt-1 font-mono">{msg.time}</span>
-                  </div>
-                ))}
-              </div>
-
-              {/* Live Cipher Stream Bar */}
-              <div className="p-3 bg-[#05101A] border-t border-[#1A2E44] flex items-center justify-between text-xs font-mono text-[#A8B4C3]">
-                <span className="text-[10px] text-[#667789]">LIVE HEX:</span>
-                <span className="text-[#8CC63F] font-bold tracking-widest">{liveCipherStream}</span>
-                <span className="text-[10px] text-[#8CC63F]">● PQ-ENCLAVE</span>
-              </div>
-
-              {/* Chat Input & Fast Dispatch */}
-              <form onSubmit={handleSendMessage} className="p-4 bg-[#071625] border-t border-[#1A2E44] flex items-center gap-3">
-                <input 
-                  type="text"
-                  value={inputText}
-                  onChange={(e) => setInputText(e.target.value)}
-                  placeholder="Type confidential message to dispatch through Kyber tunnel..."
-                  className="flex-1 bg-[#020712] border border-[#1A2E44] focus:border-[#8CC63F] rounded-xl px-4 py-3 text-sm text-[#F5F7FA] outline-none transition-colors font-mono"
-                />
-                <button
-                  type="submit"
-                  className="px-6 py-3 bg-[#8CC63F] hover:bg-[#A3D63C] text-black font-bold rounded-xl flex items-center gap-2 text-xs font-mono transition-all shadow-[0_0_20px_rgba(140,198,63,0.35)] cursor-pointer"
-                >
-                  <Send size={15} />
-                  <span>Dispatch</span>
-                </button>
-              </form>
-
+          {/* Right Column: Pinned Phone UI */}
+          <div className="lg:col-span-6 lg:sticky lg:top-28 order-first lg:order-last mb-10 lg:mb-0">
+            <div className="flex items-center justify-center p-4">
+              <SChatPhone>
+                {storySteps[activeStoryStep].component}
+              </SChatPhone>
             </div>
-
           </div>
 
         </div>
       </section>
 
       {/* Enterprise Deployment Options */}
-      <section id="schat-deployment" className="py-20 max-w-[1400px] mx-auto px-6 sm:px-8 border-t border-[#1A2E44]">
+      <section id="schat-deployment" className="py-20 max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 border-t border-[#1A2E44]">
         <div className="text-center max-w-2xl mx-auto mb-16">
           <h2 className="text-3xl sm:text-4xl font-black text-[#F5F7FA] mb-2">Enterprise Deployment</h2>
           <p className="text-xs sm:text-sm text-[#A8B4C3]">Host on-premise in sovereign air-gapped clusters or dedicated VPC.</p>
@@ -427,7 +260,7 @@ export const SChatPage: React.FC = () => {
             Ready to Fortify Your High-Stakes Communications?
           </h3>
           <p className="text-xs sm:text-sm text-[#A8B4C3] max-w-xl mb-8">
-            Deploy an S-Chat AI pilot cluster with sovereign cryptographic verification in under 48 hours.
+            Deploy an S-Chat pilot cluster with sovereign cryptographic verification in under 48 hours.
           </p>
           <div className="flex flex-wrap gap-4 justify-center">
             <GlowButton variant="green" className="px-8 py-3.5">

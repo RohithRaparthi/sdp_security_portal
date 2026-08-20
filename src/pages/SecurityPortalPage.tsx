@@ -52,8 +52,8 @@ export const SecurityPortalPage: React.FC = () => {
     {
       id: 'agent_takeover',
       name: 'Unauthorized Agent Tool Call',
-      desc: 'Simulate compromised AI sub-agent attempting to invoke unauthorized database drop commands.',
-      payload: 'CALL tool.database.execute("DROP TABLE production_users;")',
+      desc: 'Simulate compromised AI sub-agent attempting to invoke unauthorized database commands.',
+      payload: 'Unexpected command sequence detected: database schema modification',
       riskScore: 100.0,
       verdict: 'SESSION_TERMINATED',
       mitigation: 'Zero-Trust Agent RBAC policy violation detected. Sub-agent quarantined'
@@ -131,7 +131,7 @@ export const SecurityPortalPage: React.FC = () => {
       />
 
       {/* Top Breadcrumb Navigation */}
-      <div className="max-w-[1400px] mx-auto px-6 sm:px-8 mb-6">
+      <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 mb-6">
         <button 
           onClick={() => navigateTo('home')}
           className="inline-flex items-center gap-2 text-xs font-mono text-[#A8B4C3] hover:text-[#00D9FF] transition-colors py-2 px-3.5 rounded-xl bg-[#071625]/80 border border-[#00D9FF]/20 hover:border-[#00D9FF]/50 group cursor-pointer"
@@ -142,7 +142,7 @@ export const SecurityPortalPage: React.FC = () => {
       </div>
 
       {/* Hero Section */}
-      <div id="sec-hero" className="max-w-[1400px] mx-auto px-6 sm:px-8 mb-16">
+      <div id="sec-hero" className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 mb-16">
         <div className="text-left max-w-4xl">
           <div className="inline-flex items-center gap-2.5 px-4 py-1.5 bg-[#071625] border border-[#00D9FF]/40 rounded-full mb-6 glow-cyan">
             <ShieldCheck size={14} className="text-[#00D9FF]" />
@@ -151,10 +151,10 @@ export const SecurityPortalPage: React.FC = () => {
             </span>
           </div>
 
-          <h1 className="text-4xl sm:text-6xl lg:text-7xl font-black text-[#F5F7FA] tracking-tight leading-[1.02] mb-6">
+          <h1 className="text-3xl sm:text-5xl lg:text-7xl font-black text-[#F5F7FA] tracking-tight leading-[1.02] mb-6">
             AI SECURITY <br />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00D9FF] via-[#13C8F5] to-[#176BFF]">
-              FOR THE AI ERA.
+              FOR THE AI ERA
             </span>
           </h1>
 
@@ -165,7 +165,7 @@ export const SecurityPortalPage: React.FC = () => {
       </div>
 
       {/* Main Interactive Live SOC Defense Console (Pinned Split-Screen Layout) */}
-      <section id="sec-soc-console" className="max-w-[1400px] mx-auto px-6 sm:px-8 mb-24">
+      <section id="sec-soc-console" className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 mb-24">
         
         {/* State Machine Status Banner */}
         {attackStage !== 'idle' && (
@@ -232,7 +232,7 @@ export const SecurityPortalPage: React.FC = () => {
           </div>
 
           {/* Right Column: Pinned Live SOC Console Terminal */}
-          <div className="lg:col-span-7 sticky top-28 bg-[#020712] border-2 border-[#00D9FF]/40 rounded-3xl overflow-hidden shadow-2xl flex flex-col min-h-[540px]">
+          <div className="lg:col-span-7 lg:sticky lg:top-28 bg-[#020712] border-2 border-[#00D9FF]/40 rounded-3xl overflow-hidden shadow-2xl flex flex-col min-h-[540px]">
             
             {/* Terminal Top Bar */}
             <div className="p-4 bg-[#071625] border-b border-[#1A2E44] flex items-center justify-between font-mono text-xs">
@@ -271,12 +271,13 @@ export const SecurityPortalPage: React.FC = () => {
               {simulationLogs.map((log, idx) => (
                 <div key={idx} className="leading-relaxed flex items-start gap-2">
                   <span className="text-[#667789] shrink-0">[{log.timestamp}]</span>
-                  <span className={
+                  <span className={cn(
+                    "break-words",
                     log.type === 'alert' ? 'text-red-400 font-bold' :
                     log.type === 'warn' ? 'text-yellow-400' :
                     log.type === 'success' ? 'text-[#8CC63F] font-bold' :
                     'text-[#A8B4C3]'
-                  }>
+                  )}>
                     {log.text}
                   </span>
                 </div>
@@ -302,9 +303,9 @@ export const SecurityPortalPage: React.FC = () => {
       </section>
 
       {/* Enterprise Capabilities Grid */}
-      <section id="sec-capabilities" className="py-20 max-w-[1400px] mx-auto px-6 sm:px-8 border-t border-[#00D9FF]/15">
+      <section id="sec-capabilities" className="py-20 max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 border-t border-[#00D9FF]/15">
         <div className="text-left max-w-3xl mb-16">
-          <h2 className="text-3xl sm:text-5xl font-black text-[#F5F7FA] mb-3">
+          <h2 className="text-2xl sm:text-4xl lg:text-5xl font-black text-[#F5F7FA] mb-3">
             Enterprise Zero-Trust Defense Architecture
           </h2>
           <p className="text-sm text-[#A8B4C3]">
@@ -350,7 +351,7 @@ export const SecurityPortalPage: React.FC = () => {
 
       {/* Enterprise Compatibility */}
       <section id="sec-compatibility" className="py-16 bg-[#020712] border-y border-[#1A2E44]">
-        <div className="max-w-[1400px] mx-auto px-6 sm:px-8 text-center">
+        <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h3 className="text-lg font-bold text-[#F5F7FA] mb-6 font-mono uppercase tracking-wider">
             Native Framework & Model Integrations
           </h3>
@@ -366,17 +367,21 @@ export const SecurityPortalPage: React.FC = () => {
       </section>
 
       {/* Bottom Callout */}
-      <section className="py-20 max-w-[1400px] mx-auto px-6 sm:px-8">
-        <div className="p-10 bg-gradient-to-r from-[#071625] via-[#020712] to-[#071625] border border-[#00D9FF]/40 rounded-3xl text-center flex flex-col items-center shadow-[0_0_50px_rgba(0,217,255,0.15)]">
-          <h3 className="text-3xl sm:text-4xl font-black text-[#F5F7FA] mb-3">
+      <section className="py-20 max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="p-8 sm:p-10 bg-gradient-to-r from-[#071625] via-[#020712] to-[#071625] border border-[#00D9FF]/40 rounded-3xl text-center flex flex-col items-center shadow-[0_0_50px_rgba(0,217,255,0.15)]">
+          <h3 className="text-2xl sm:text-4xl font-black text-[#F5F7FA] mb-3">
             Deploy AI Build Security Portal
           </h3>
           <p className="text-xs sm:text-sm text-[#A8B4C3] max-w-xl mb-8">
             Schedule an architectural security review and protect your mission-critical AI workloads.
           </p>
           <div className="flex flex-wrap gap-4 justify-center">
-            <GlowButton variant="primary" className="px-8 py-3.5">
-              Deploy Enterprise Portal
+            <GlowButton 
+              variant="primary" 
+              className="px-8 py-3.5"
+              onClick={() => document.getElementById('sec-soc-console')?.scrollIntoView({ behavior: 'smooth' })}
+            >
+              Launch SOC Console
             </GlowButton>
             <button 
               onClick={() => navigateTo('home')}

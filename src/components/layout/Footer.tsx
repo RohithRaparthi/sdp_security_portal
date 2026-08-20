@@ -1,6 +1,7 @@
 import React from 'react';
 import { Shield, Sparkles, ArrowRight, ShieldCheck, Shirt } from 'lucide-react';
 import { useNavigation } from '../../utils/router';
+import sdpLogo from '../../assets/sdp-logo.jpg';
 
 export const Footer: React.FC = () => {
   const { navigateTo } = useNavigation();
@@ -10,7 +11,7 @@ export const Footer: React.FC = () => {
       {/* Decorative top glow */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-1/2 h-[1px] bg-gradient-to-r from-transparent via-[#00D9FF]/30 to-transparent glow-cyan"></div>
       
-      <div className="max-w-[1320px] mx-auto px-6 relative z-10">
+      <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-12 lg:gap-8 mb-16">
           
           {/* Company Info */}
@@ -19,13 +20,11 @@ export const Footer: React.FC = () => {
               onClick={() => navigateTo('home')}
               className="flex items-center gap-3 cursor-pointer group w-fit"
             >
-              <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-[#8CC63F] to-[#4D7C0F] flex items-center justify-center shadow-[0_0_15px_rgba(140,198,63,0.3)] group-hover:scale-105 transition-transform">
-                <span className="text-[#020712] font-black text-xl tracking-tighter">S</span>
-              </div>
-              <div className="flex flex-col">
-                <span className="text-[#F5F7FA] font-bold text-lg leading-tight tracking-wide group-hover:text-[#00D9FF] transition-colors">SDP</span>
-                <span className="text-[#A8B4C3] text-[10px] leading-tight font-medium">Secure Data Protection<br/>Innovations Pvt. Ltd.</span>
-              </div>
+              <img 
+                src={sdpLogo} 
+                alt="SDP Logo" 
+                className="h-14 w-auto object-contain rounded-xl shadow-[0_0_20px_rgba(0,0,0,0.5)] group-hover:scale-105 transition-transform" 
+              />
             </div>
             <p className="text-[#A8B4C3] text-sm leading-relaxed max-w-sm">
               Building secure, intelligent, and scalable AI solutions for modern enterprises. We pioneer next-generation zero-trust AI security, quantum-resistant messaging, and spatial fashion intelligence.

@@ -75,11 +75,12 @@ export const HeroSection: React.FC = () => {
 
             {/* Massive Hero Headline */}
             <ScrollReveal direction="up" delay={0.2}>
-              <h1 className="text-4xl sm:text-6xl lg:text-7xl xl:text-8xl font-black text-[#F5F7FA] tracking-tight leading-[0.98] mb-6">
-                AI SECURITY,<br />
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00D9FF] via-[#13C8F5] to-[#8CC63F]">
-                  REIMAGINED.
+              <h1 className="text-5xl sm:text-7xl lg:text-6xl xl:text-7xl font-black text-[#F5F7FA] tracking-tighter leading-[0.9] mb-8">
+                <span className="block">WE BUILD</span>
+                <span className="block text-transparent bg-clip-text bg-gradient-to-r from-[#00D9FF] via-[#8CC63F] to-[#A855F7] animate-pulse">
+                  AI SECURITY
                 </span>
+                <span className="block">AND SPATIAL AI</span>
               </h1>
             </ScrollReveal>
 

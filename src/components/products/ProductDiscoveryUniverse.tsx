@@ -31,9 +31,9 @@ export const ProductDiscoveryUniverse: React.FC = () => {
               </span>
             </div>
             <h2 className="text-4xl sm:text-6xl lg:text-7xl font-black text-[#F5F7FA] tracking-tight leading-[1.02] mb-4">
-              THREE PRODUCTS.<br />
+              THREE PRODUCTS<br />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00D9FF] via-[#8CC63F] to-[#A855F7]">
-                THREE INTELLIGENT WORLDS.
+                THREE INTELLIGENT WORLDS
               </span>
             </h2>
             <p className="text-base sm:text-lg text-[#A8B4C3] max-w-2xl leading-relaxed">
@@ -113,7 +113,7 @@ export const ProductDiscoveryUniverse: React.FC = () => {
                   <div className="space-y-3 font-mono text-xs">
                     <div className="p-3.5 rounded-xl bg-[#071625] border border-[#1A2E44] text-[#F5F7FA] max-w-[90%]">
                       <p>🔒 Handshake initiated with quantum seed. All memory buffers locked.</p>
-                      <span className="text-[10px] text-[#8CC63F] block mt-1">CIPHER: 0xe4a899c7f21b0042d38827ab10f99a...</span>
+                      <span className="text-[10px] text-[#8CC63F] block mt-1 break-all">CIPHER: 0xe4a899c7f21b0042d38827ab10f99a...</span>
                     </div>
 
                     <div className="p-3.5 rounded-xl bg-[#8CC63F]/15 border border-[#8CC63F]/40 text-[#F5F7FA] max-w-[90%] ml-auto text-right">

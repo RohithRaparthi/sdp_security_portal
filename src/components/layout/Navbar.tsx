@@ -3,6 +3,7 @@ import { Menu, X, ChevronDown, Sparkles, Shirt, ShieldCheck, Lock } from 'lucide
 import { GlowButton } from '../common/GlowButton';
 import { cn } from '../../utils/cn';
 import { useNavigation, type PageId } from '../../utils/router';
+import sdpLogo from '../../assets/sdp-logo.jpg';
 
 export const Navbar: React.FC = () => {
   const { currentPage, navigateTo } = useNavigation();
@@ -83,26 +84,18 @@ export const Navbar: React.FC = () => {
         ? "bg-[#020712]/90 backdrop-blur-xl border-b border-[#00D9FF]/20 shadow-2xl py-3" 
         : "bg-transparent border-b border-transparent py-5"
     )}>
-      <div className="max-w-[1400px] mx-auto px-6 sm:px-8 flex items-center justify-between">
+      <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
         
         {/* Logo */}
         <div 
           onClick={() => navigateTo('home')}
           className="flex items-center gap-3 z-50 cursor-pointer group"
         >
-          <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#8CC63F] via-[#00D9FF] to-[#A855F7] flex items-center justify-center shadow-[0_0_25px_rgba(0,217,255,0.4)] group-hover:scale-105 transition-transform p-[2px]">
-            <div className="w-full h-full bg-[#020712] rounded-[10px] flex items-center justify-center">
-              <span className="text-[#00D9FF] font-black text-xl tracking-tighter">S</span>
-            </div>
-          </div>
-          <div className="flex flex-col">
-            <span className="text-[#F5F7FA] font-black text-lg leading-tight tracking-wider group-hover:text-[#00D9FF] transition-colors font-mono">
-              SDP
-            </span>
-            <span className="text-[#A8B4C3] text-[9px] leading-tight font-mono uppercase tracking-wider">
-              Innovation Pvt. Ltd.
-            </span>
-          </div>
+          <img 
+            src={sdpLogo} 
+            alt="SDP Logo" 
+            className="h-12 w-auto object-contain rounded-xl shadow-[0_0_20px_rgba(0,0,0,0.5)] group-hover:scale-105 transition-transform" 
+          />
         </div>
 
         {/* Desktop Navigation Links */}
@@ -212,20 +205,42 @@ export const Navbar: React.FC = () => {
 
         {/* Mobile Toggle Button */}
         <button 
-          className="lg:hidden text-[#F5F7FA] p-2 z-50 rounded-xl bg-[#071625] border border-[#1A2E44]"
-          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-          aria-label="Toggle navigation menu"
+          className={cn(
+            "lg:hidden text-[#F5F7FA] p-2 z-50 rounded-xl bg-[#071625] border border-[#1A2E44] transition-opacity",
+            isMobileMenuOpen ? "opacity-0 pointer-events-none" : "opacity-100"
+          )}
+          onClick={() => setIsMobileMenuOpen(true)}
+          aria-label="Open navigation menu"
         >
-          {isMobileMenuOpen ? <X size={22} /> : <Menu size={22} />}
+          <Menu size={22} />
         </button>
 
       </div>
 
-      {/* Mobile Drawer */}
+      {/* Mobile Drawer Overlay */}
+      <div 
+        className={cn(
+          "fixed inset-0 bg-[#020712]/60 backdrop-blur-sm z-40 lg:hidden transition-opacity duration-300 ease-in-out",
+          isMobileMenuOpen ? "opacity-100 visible" : "opacity-0 invisible pointer-events-none"
+        )}
+        onClick={() => setIsMobileMenuOpen(false)}
+      />
+
+      {/* Mobile Drawer Panel */}
       <div className={cn(
-        "fixed inset-0 bg-[#020712]/98 backdrop-blur-2xl z-40 lg:hidden flex flex-col justify-between p-6 pt-24 transition-all duration-300 ease-in-out",
-        isMobileMenuOpen ? "opacity-100 visible" : "opacity-0 invisible pointer-events-none"
+        "fixed top-0 right-0 bottom-0 w-[280px] max-w-[85vw] bg-[#020712]/95 backdrop-blur-xl z-50 lg:hidden flex flex-col justify-between p-6 shadow-[-10px_0_30px_rgba(0,0,0,0.8)] border-l border-[#00D9FF]/20 transition-transform duration-300 ease-in-out",
+        isMobileMenuOpen ? "translate-x-0" : "translate-x-full"
       )}>
+        {/* Drawer Header */}
+        <div className="flex items-center justify-between mb-8 pb-4 border-b border-[#1A2E44]">
+          <span className="text-xs font-mono font-bold text-[#00D9FF] uppercase tracking-wider">Menu</span>
+          <button 
+            className="text-[#F5F7FA] p-2 -mr-2 rounded-xl hover:bg-[#071625] transition-colors"
+            onClick={() => setIsMobileMenuOpen(false)}
+          >
+            <X size={20} />
+          </button>
+        </div>
         <div className="flex flex-col gap-6 overflow-y-auto">
           <div>
             <span className="text-xs font-mono font-bold text-[#A8B4C3] uppercase tracking-wider block mb-3">Navigation</span>

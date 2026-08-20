@@ -65,7 +65,7 @@ export const StickyProductNav: React.FC<StickyProductNavProps> = ({
       "sticky top-20 z-40 transition-all duration-300 w-full mb-8",
       isSticky ? "opacity-100 translate-y-0" : "opacity-95"
     )}>
-      <div className="max-w-[1320px] mx-auto px-6">
+      <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
         <div className="bg-[#05101A]/90 border border-white/10 backdrop-blur-xl rounded-2xl px-5 py-2.5 flex items-center justify-between shadow-2xl shadow-black/60 overflow-x-auto no-scrollbar gap-4">
           
           {/* Product Title & Badge */}

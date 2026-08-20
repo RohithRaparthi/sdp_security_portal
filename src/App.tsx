@@ -7,12 +7,14 @@ import { SChatPage } from './pages/SChatPage';
 import { OutfitAIPage } from './pages/OutfitAIPage';
 import { SecurityPortalPage } from './pages/SecurityPortalPage';
 import { AnimatePresence, motion } from 'framer-motion';
+import { SplashScreen } from './components/layout/SplashScreen';
 
 const MainContent: React.FC = () => {
   const { currentPage } = useNavigation();
 
   return (
     <div className="min-h-screen flex flex-col bg-[#020712] text-[#F5F7FA] selection:bg-[#00D9FF]/20 selection:text-[#00D9FF]">
+      <SplashScreen />
       <Navbar />
       
       <div className="flex-grow">
