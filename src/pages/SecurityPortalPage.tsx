@@ -13,6 +13,7 @@ import { useNavigation } from '../utils/router';
 import { GlowButton } from '../components/common/GlowButton';
 import { StickyProductNav } from '../components/common/StickyProductNav';
 import { motion } from 'framer-motion';
+import { cn } from '../utils/cn';
 
 export const SecurityPortalPage: React.FC = () => {
   const { navigateTo } = useNavigation();
